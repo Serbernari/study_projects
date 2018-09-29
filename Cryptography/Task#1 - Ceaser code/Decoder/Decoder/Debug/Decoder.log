@@ -1,0 +1,5 @@
+﻿  Decoder.cpp
+d:\github\cryptography\task#1 - ceaser code\decoder\decoder\decoder.cpp(14): warning C4244: аргумент: преобразование "unsigned __int64" в "const unsigned int", возможна потеря данных
+d:\github\cryptography\task#1 - ceaser code\decoder\decoder\decoder.cpp(40): warning C4244: аргумент: преобразование "unsigned __int64" в "const unsigned int", возможна потеря данных
+d:\github\cryptography\task#1 - ceaser code\decoder\decoder\decoder.cpp(41): warning C4244: аргумент: преобразование "unsigned __int64" в "const unsigned int", возможна потеря данных
+  Decoder.vcxproj -> D:\GitHub\Cryptography\Task#1 - Ceaser code\Decoder\Debug\Decoder.exe
