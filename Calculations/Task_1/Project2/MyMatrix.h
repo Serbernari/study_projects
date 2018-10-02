@@ -22,6 +22,10 @@ public:
 	//make matrix from files
 
 	double getElem(int i, int j);
+	double getLElem(int i, int j);
+	double getUElem(int i, int j);
+	void setL(int i, int j, double value);
+	void setUElem(unsigned i, unsigned j, double value);
 
 	~MyMatrix();
 

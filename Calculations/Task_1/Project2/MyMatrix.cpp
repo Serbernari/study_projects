@@ -84,11 +84,16 @@ bool MyMatrix::buildInOne()
 
 double MyMatrix::getElem(int i, int j)
 {
-	if (((i < j) && ((j - i) <= lowerWidth)) || ((i > j) && (i - j) <= upperWidth)) //если лежит в пределах записанного
+	if (((i <= j) && ((j - i) <= lowerWidth)) || ((i > j) && (i - j) <= upperWidth)) //если лежит в пределах записанного
 	{
-		return(mat[i][j - i + lowerWidth + 1]);
+		return(mat[i][j - i + lowerWidth]);
 	}
 	else return 0.0; //сделать ограничение по вылезанию за массив if ((i > diag.size()) || (j > diag.size()) exception
+}
+
+void MyMatrix::setL(int i, int j, double value)
+{
+	mat[i][j - i + lowerWidth] = value;
 }
 
 MyMatrix::~MyMatrix()
