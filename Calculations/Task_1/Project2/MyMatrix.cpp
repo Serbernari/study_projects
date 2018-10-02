@@ -72,6 +72,17 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 	input3.close();
 }
 
+bool MyMatrix::buildInOne()
+{
+	mat = lower;
+	for (int i = 0; i < diag.size(); ++i)
+	{
+		mat[i].push_back(diag[i]);
+		mat[i].insert(mat[i].end(), upper[i].begin(), upper[i].end());
+	}
+	return 0;
+}
+
 double MyMatrix::getElem(int i, int j)
 {
 	return 0.0;
