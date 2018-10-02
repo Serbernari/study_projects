@@ -13,6 +13,8 @@ public:
 	std::vector<std::vector<double>> lower, upper; //3 matrix
 	std::vector<std::vector<double>> mat;
 
+	unsigned lowerWidth, upperWidth, diagSize;
+
 	MyMatrix();//standard constructor
 
 	MyMatrix(std::string * f_diag, std::string * f_lower, std::string * f_upper);
