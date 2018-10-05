@@ -48,8 +48,9 @@ void decodeIt(vector<char>* myText, vector<char>* key)
 int main()
 {
 	ifstream input; //open encoded text
-	input.open("d:\\InputEncoded.txt");
+	input.open("D:\\encodedoutput.txt");
 	std::vector<char> myText;
+	std::vector<char> myKey;
 
 	while (true)
 	{
@@ -59,9 +60,9 @@ int main()
 		myText.push_back(n);
 	}
 
-	ifstream keyFile; // open key
+	/*ifstream keyFile; // open key
 	keyFile.open("d:\\Key.txt");
-	std::vector<char> myKey(32);
+	std::vector<char> myKey(32);*/
 
 	/*while (true)
 	{

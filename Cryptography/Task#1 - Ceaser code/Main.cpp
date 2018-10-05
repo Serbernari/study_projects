@@ -52,7 +52,7 @@ int main()
 {
 	vector <char> key(32);
 	ifstream input;
-	input.open("d:\\Input.txt");
+	input.open("D:\\coderinput.txt");
 
 	std::vector<char> myText;
 
@@ -68,12 +68,12 @@ int main()
 	input.close();
 
 	std::ofstream fkey;
-	fkey.open("d:\\Key.txt");
+	fkey.open("D:\\Key.txt");
 	for (const auto &e : key) fkey << e; //???
 	fkey.close();
 
 	std::ofstream fout;
-	fout.open("d:\\Output.txt");
+	fout.open("D:\\encodedoutput.txt");
 	for (const auto &e : myText) fout << e; //???
 	fout.close();
 
