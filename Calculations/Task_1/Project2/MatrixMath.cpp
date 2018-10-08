@@ -36,22 +36,31 @@ void LU_expansion(MyMatrix * A)
 {
 	//переход к столбцам Al[i][j] = L[i][width - (i-j) + 1]
 					  // Au[i][j] = U[j][width - (j-i) + 1]
-	double tmpsum = 0;
+	
+
 	for (unsigned i = 0; i < A->height; ++i)
-	{		
+	{
+		double tmpsum = 0;
+		
 		for (unsigned j = 0; j < A->width; ++j)
-		{ //надо попеременно расчитывать
-			if ((j > i)&&(A->width >= (j - i)))
+		{ 
+			//надо попеременно расчитывать
+			for (int k = 0; k <= j; ++k)
+			{
+				tmpsum += A->lower[i][A->width - (i-k)] * A->upper[j][A->width - (j-k)];
+			}
+			if ((j > i) && (A->width >= j - i))
 			{
 				A->upper[j][A->width - (j - i) ] -= tmpsum;
 				A->upper[j][A->width - (j - i) ] / A->diag[i];
 			}
-			else if ((i > j)&&(A->width >=  (i - j)))
+			else if ((i > j) && (A->width >= i - j))
 			{
 				A->lower[i][A->width - (i - j) ] -= tmpsum;
 				//A->lower[i][A->width - (i - j) + 1] 
 			}
-			else {
+			else 
+			{
 
 			}
 		}
