@@ -15,7 +15,7 @@ int main()
 	*f_upper = "D:/GitHub/study_projects/Calculations/Task1_files/f_upper.txt";
 	
 	MyMatrix testMatrix(f_diag,f_lower,f_upper);
-	vector<double> testVec = {1,1,1,1,1,1};
+	vector<double> testVec = {1,1,1,1,1,1,1,1,1 };
 	mult_MatOnVect(&testMatrix, &testVec);
 	return 0;
 }

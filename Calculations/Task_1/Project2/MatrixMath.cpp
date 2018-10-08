@@ -18,7 +18,10 @@ void mult_MatOnVect(MyMatrix * A, std::vector<double>* V)
 
 		for (unsigned j = 0; j < A->width; ++j) //upper triangle 
 		{
-			tmp[i] += (A->upper[i][j]) * (*V)[i];
+			if (i + 1 + j < A->height) 
+			{
+				tmp[i] += (A->upper[i + 1 + j][A->width - 1 - j]) * (*V)[i];
+			}
 		}
 	}
 	*V = tmp; //колхоз, переделать
