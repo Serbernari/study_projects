@@ -17,5 +17,6 @@ int main()
 	MyMatrix testMatrix(f_diag,f_lower,f_upper);
 	vector<double> testVec = {1,1,1,1,1,1,1,1,1 };
 	mult_MatOnVect(&testMatrix, &testVec);
+	LU_expansion(&testMatrix);
 	return 0;
 }

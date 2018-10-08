@@ -34,41 +34,33 @@ void mult_MatOnMat(MyMatrix * A, MyMatrix * B)
 
 void LU_expansion(MyMatrix * A)
 {
+	//переход к столбцам Al[i][j] = L[i][width - (i-j) + 1]
+					  // Au[i][j] = U[j][width - (j-i) + 1]
 	double tmpsum = 0;
 	for (unsigned i = 0; i < A->height; ++i)
-	{
-			for (int k = 1; k < A->width + 1; ++k) //переход к столбцам Al[i][j] = L[i][width - (i-j) + 1]
-			{	
-			A->upper[k][A->width - k];
-			}
-		}
+	{		
 		for (unsigned j = 0; j < A->width; ++j)
-		{
-			for (int k = 0; k <= j - 1; ++k)
+		{ //надо попеременно расчитывать
+			if ((j > i)&&(A->width >= (j - i)))
 			{
-				tmpsum += A->lower[i][k] * A->upper[k][j];
+				A->upper[j][A->width - (j - i) ] -= tmpsum;
+				A->upper[j][A->width - (j - i) ] / A->diag[i];
 			}
-			A->upper[i][j] -= tmpsum;
+			else if ((i > j)&&(A->width >=  (i - j)))
+			{
+				A->lower[i][A->width - (i - j) ] -= tmpsum;
+				//A->lower[i][A->width - (i - j) + 1] 
+			}
+			else {
+
+			}
 		}
 	}
-
 	
-	A->upper[i][j] -= tmpsum;
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	double tmpSum = 0;
+	/*//double tmpSum = 0;
 	for (unsigned i = 0; i < A->height; ++i)
 	{
 		for (unsigned j = 0; j < A->height; ++j)
@@ -93,5 +85,5 @@ void LU_expansion(MyMatrix * A)
 						A.upper[i][j] = (A.lower[i][j]) / A.lower[i][i];
 					}
 			}
-	}
+	}*/
 }
