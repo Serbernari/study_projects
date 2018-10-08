@@ -14,7 +14,7 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 		input1 >> tmp_double;
 		diag.push_back(tmp_double);
 		if (input1.eof()) {
-			diagSize = diag.size();
+			height = diag.size();
 			break;
 		}
 	}
@@ -28,14 +28,14 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 		tmp_vector.push_back(tmp_double);
 		if (input2.eof())
 		{
-			lowerWidth = tmp_vector.size() / diagSize;
+			width = tmp_vector.size() / height;
 			std::vector<double> tmp_vec2;
 
-			for (int line = 0; line < diagSize; ++line)
+			for (int line = 0; line < height; ++line)
 			{
-				for (int i = 0; i < lowerWidth; ++i)
+				for (int i = 0; i < width; ++i)
 				{
-					tmp_vec2.push_back(tmp_vector[lowerWidth*line + i]);
+					tmp_vec2.push_back(tmp_vector[width*line + i]);
 				}
 				lower.push_back(tmp_vec2);
 				tmp_vec2.clear();
@@ -53,14 +53,14 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 		tmp_vector.push_back(tmp_double);
 		if (input3.eof())
 		{
-			upperWidth = tmp_vector.size() / diagSize;
+			//width = tmp_vector.size() / height;
 			std::vector<double> tmp_vec2;
 
-			for (int line = 0; line < diagSize; ++line)
+			for (int line = 0; line < height; ++line)
 			{
-				for (int i = 0; i < upperWidth; ++i)
+				for (int i = 0; i < width; ++i)
 				{
-					tmp_vec2.push_back(tmp_vector[upperWidth*line + i]);
+					tmp_vec2.push_back(tmp_vector[width*line + i]);
 				}
 				upper.push_back(tmp_vec2);
 				tmp_vec2.clear();
@@ -71,36 +71,7 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 	input3.close();
 }
 
-bool MyMatrix::buildInOne()
-{
-	mat = lower;
-	for (int i = 0; i < diag.size(); ++i)
-	{
-		mat[i].push_back(diag[i]);
-		mat[i].insert(mat[i].end(), upper[i].begin(), upper[i].end());
-	}
-	return 0;
-}
-
-double MyMatrix::getElem(int i, int j)
-{
-	if (((i <= j) && ((j - i) <= lowerWidth)) || ((i > j) && (i - j) <= upperWidth)) //если лежит в пределах записанного
-	{
-		return(mat[i][j - i + lowerWidth]);
-	}
-	else return 0.0; //сделать ограничение по вылезанию за массив if ((i > diag.size()) || (j > diag.size()) exception
-}
-
-void MyMatrix::setL(int i, int j, double value)
-{
-	mat[i][j - i + lowerWidth] = value;
-}
-
 MyMatrix::~MyMatrix()
 {
 }
 
-unsigned MyMatrix::get_width()
-{
-	return 0;
-}

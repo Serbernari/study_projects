@@ -1,37 +1,25 @@
 #include "MatrixMath.h"
 
-MyMatrix LU_expansion(MyMatrix A)
+void mult_MatOnVect(MyMatrix * A, std::vector<double>* V)
 {
-
-	A.setL(0, 0, A.getElem(0, 0));
-	double tmpSum = 0;
-	for (unsigned i = 0; i < A.diagSize; ++i)
+	std::vector<double> tmp;
+	for (unsigned i = 0; i < A->height; ++i)
 	{
-		for (unsigned j = 0; j < (A.lowerWidth + A.upperWidth + 1); ++j)
+		tmp.push_back(0);
+
+		for (unsigned j = 0; j < A->width; ++j) //lower triangle 
 		{
-			if (j == 0)
-			{
-				A.setL(i, j, A.getElem(i, 0));
-			}
-			else
-			{
-				for (unsigned k = 0; k < j; ++k)
-				{
-					tmpSum += (A.lower[i][k]) * (A.upper[k][j]); //преобразовывать координаты?
-				}
-					A.lower[i][j] = (A.getElem(i, j) - tmpSum);
-					tmpSum = 0;
-					A.upper[i][j] = (A.lower[i][j]) / A.lower[i][i];
-			}
+			tmp[i] += (A->lower[i][j]) * (*V)[i];
+		}
+		 
+		{
+			tmp[i] += A->diag[i] * (*V)[i]; //diagonal
+		}
+
+		for (unsigned j = 0; j < A->width; ++j) //upper triangle 
+		{
+			tmp[i] += (A->upper[i][j]) * (*V)[i];
 		}
 	}
-		
-	return MyMatrix();
-}
-
-MyMatrix multiplication(MyMatrix a, MyMatrix b) //преопределить оператор
-{
-	MyMatrix c;
-
-	return c;
+	*V = tmp; //колхоз, переделать
 }
