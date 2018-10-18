@@ -1,0 +1,23 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2041
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "XOR", "XOR\XOR.pyproj", "{540397B9-CF69-4A21-9C57-7F21A0CFC1FA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{540397B9-CF69-4A21-9C57-7F21A0CFC1FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{540397B9-CF69-4A21-9C57-7F21A0CFC1FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {940DFBA7-C854-49E5-B710-72A9D19EED51}
+	EndGlobalSection
+EndGlobal
