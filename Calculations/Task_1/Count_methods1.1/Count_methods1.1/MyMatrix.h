@@ -4,13 +4,13 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
-
+typedef double real;
 
 class MyMatrix
 {
 public:
-	std::vector<double> diag;
-	std::vector<std::vector<double>> lower, upper; //2 matrix
+	std::vector<real> diag;
+	std::vector<std::vector<real>> lower, upper; //2 matrix
 
 	unsigned height, width;
 

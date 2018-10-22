@@ -115,13 +115,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DenseMatrix.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MatrixMath.cpp" />
     <ClCompile Include="MyMatrix.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DenseMatrix.h" />
     <ClInclude Include="MatrixMath.h" />
     <ClInclude Include="MyMatrix.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Task1_files\B.txt" />
+    <Text Include="..\..\..\Task1_files\f_diag.txt" />
+    <Text Include="..\..\..\Task1_files\f_lower.txt" />
+    <Text Include="..\..\..\Task1_files\f_upper.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

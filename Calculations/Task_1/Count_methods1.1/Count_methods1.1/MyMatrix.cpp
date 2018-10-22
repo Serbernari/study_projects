@@ -1,5 +1,5 @@
 #include "MyMatrix.h"
-
+typedef double real;
 
 MyMatrix::MyMatrix() //default constructor
 {
@@ -7,7 +7,7 @@ MyMatrix::MyMatrix() //default constructor
 
 MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upper)
 {
-	double tmp_double;
+	real tmp_double;
 	std::ifstream input1(*f_diag);
 	while (true)
 	{
@@ -21,7 +21,7 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 	input1.close();
 
 	std::ifstream input2(*f_lower);
-	std::vector<double> tmp_vector;
+	std::vector<real> tmp_vector;
 	while (true)
 	{
 		input2 >> tmp_double;
@@ -29,7 +29,7 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 		if (input2.eof())
 		{
 			width = tmp_vector.size() / height;
-			std::vector<double> tmp_vec2;
+			std::vector<real> tmp_vec2;
 
 			for (int line = 0; line < height; ++line)
 			{
@@ -54,7 +54,7 @@ MyMatrix::MyMatrix(std::string* f_diag, std::string* f_lower, std::string* f_upp
 		if (input3.eof())
 		{
 			//width = tmp_vector.size() / height;
-			std::vector<double> tmp_vec2;
+			std::vector<real> tmp_vec2;
 
 			for (int line = 0; line < height; ++line)
 			{

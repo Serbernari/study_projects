@@ -64,14 +64,14 @@ void buildKey2(vector<char>* myText, vector<char>* key, vector<unsigned long lon
 
 void decodeIt(vector<char>* myText, vector<char>* key, vector<unsigned long long>* statistics)
 {
-	buildKey2(myText, key, statistics);
+	//buildKey(myText, key, statistics);
 
 	char Alphabet[] = "ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß";
 	int pos;
 
 	for (unsigned long long i = 0; i < myText->size(); ++i)
 	{
-		//if (((*myText)[i] >= 'à') || ((*myText)[i] <= 'ÿ')) //we don't need it if input text formated
+		if (((*myText)[i] >= 'à') || ((*myText)[i] <= 'ÿ')) //we don't need it if input text formated
 		{
 			pos = distance(key->begin(), find(key->begin(), key->end(), (*myText)[i]));
 			(*myText)[i] = Alphabet[pos];
@@ -82,7 +82,7 @@ void decodeIt(vector<char>* myText, vector<char>* key, vector<unsigned long long
 int main()
 {
 	ifstream input; //open encoded text
-	input.open("D:\\encodedoutput.txt");
+	input.open("D:\\text.txt");
 	std::vector<char> myText;
 	//std::vector<char> myKey(32);
 	std::vector<unsigned long long> statistics(32); //statistics[0] is a, statistics[1] is á and so on
@@ -96,9 +96,9 @@ int main()
 	}
 
 	ifstream keyFile; // open input key
-	keyFile.open("D:\\keyinput.txt");
+	keyFile.open("D:\\key.txt");
 	std::vector<char> myKey;
-
+	
 	while (true)
 	{
 		char n;
@@ -106,7 +106,7 @@ int main()
 		if (keyFile.eof()) break;
 		myKey.push_back(n);
 	}
-
+	
 	decodeIt(&myText, &myKey, &statistics); // decoding
 
 	std::ofstream fout;

@@ -1,11 +1,11 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <string>
 #include "MyMatrix.h"
 #include "MatrixMath.h"
-#include <string>
 
 using namespace std;
+typedef double real;
 
 int main()
 {
@@ -15,8 +15,12 @@ int main()
 	*f_upper = "D:/GitHub/study_projects/Calculations/Task1_files/f_upper.txt";
 
 	MyMatrix testMatrix(f_diag, f_lower, f_upper);
-	vector<double> testVec = { 1,1,1,1,1,1,1,1,1 };
+	vector<real> testVec = { 2.0,3.0,0.0,3.0 };
 	//mult_MatOnVect(&testMatrix, &testVec);
-	LU_expansion(&testMatrix);
+	LU_dec(&testMatrix);
+	forward_sol(&testMatrix, &testVec);
+	backward_sol(&testMatrix, &testVec);
+
+	MyMatrix B = HilbertMat(5);
 	return 0;
 }
