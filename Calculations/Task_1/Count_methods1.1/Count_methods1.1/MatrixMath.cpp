@@ -49,7 +49,7 @@ void LU_dec(MyMatrix * A)
 	}
 }
 
-void CalcY(MyMatrix* A, std::vector<real>* F)
+void forward_sol(MyMatrix* A, std::vector<real>* F)
 {	real sum;
 	for (int i = 0; i < A->height; i++)
 	{
@@ -63,7 +63,7 @@ void CalcY(MyMatrix* A, std::vector<real>* F)
 	}
 }
 
-void CalcX(MyMatrix* A, std::vector<real>* F)
+void backward_sol(MyMatrix* A, std::vector<real>* F)
 {	
 	std::vector<double> tmp(F->size());
 	for (int i = A->height - 1; i >= 0; i--)
@@ -118,23 +118,13 @@ MyMatrix HilbertMat(const unsigned size) //all stored in
 				else
 				{
 					A.lower[i][j] = (1.0 / (real)(i + j + 1));
-				}
-								
-			}
-			else if (i < j)
-			{
-				if (i < A.width)
-				{
-					A.upper[j][A.width - j + i] = (1.0 / (real)(i + j + 1)); // ij or ji?					
-				}
-				else
-				{
-					A.upper[j][i] = (1.0 / (real)(i + j + 1)); //
-				}
-				
-			}
+				}								
+			}			
 		}
 	}
+
+	A.upper = A.lower; //becouse Hilbert matrix is symertical
+
 	return A;
 }
 

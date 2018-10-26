@@ -21,13 +21,13 @@ int main()
 	forward_sol(&testMatrix, &testVec);
 	backward_sol(&testMatrix, &testVec);*/
 
-	MyMatrix B = HilbertMat(5);
+	MyMatrix B = HilbertMat(3);
 	vector<double>f = { 1.0, 1.0, 1.0};
 	//mult_MatOnVect(&B, &f);
 	//LU_dec(&B);
 	LU_dec(&B);
-	CalcY(&B, &f);
-	CalcX(&B, &f);
+	forward_sol(&B, &f);
+	backward_sol(&B, &f);
 	   
 	return 0;
 }
