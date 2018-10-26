@@ -15,12 +15,19 @@ int main()
 	*f_upper = "D:/GitHub/study_projects/Calculations/Task1_files/f_upper.txt";
 
 	MyMatrix testMatrix(f_diag, f_lower, f_upper);
-	vector<real> testVec = { 2.0,3.0,0.0,3.0 };
+	vector<real> testVec = { 0.0, 0.0, 0.0, 0.0, 0.0};
 	//mult_MatOnVect(&testMatrix, &testVec);
-	LU_dec(&testMatrix);
+	/*LU_dec(&testMatrix);
 	forward_sol(&testMatrix, &testVec);
-	backward_sol(&testMatrix, &testVec);
+	backward_sol(&testMatrix, &testVec);*/
 
 	MyMatrix B = HilbertMat(5);
+	vector<double>f = { 1.0, 1.0, 1.0};
+	//mult_MatOnVect(&B, &f);
+	//LU_dec(&B);
+	LU_dec(&B);
+	CalcY(&B, &f);
+	CalcX(&B, &f);
+	   
 	return 0;
 }
