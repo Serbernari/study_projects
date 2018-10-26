@@ -26,8 +26,8 @@ int main()
 	//mult_MatOnVect(&B, &f);
 	//LU_dec(&B);
 	LU_dec(&B);
-	forward_sol(&B, &f);
-	backward_sol(&B, &f);
+	forward_sol(B, f);
+	backward_sol(B, f);
 	   
 	return 0;
 }

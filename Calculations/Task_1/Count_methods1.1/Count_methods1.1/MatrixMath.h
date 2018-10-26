@@ -5,8 +5,8 @@ void mult_MatOnVect(MyMatrix* A, std::vector<real>* B);
 void mult_MatOnMat(MyMatrix* A, MyMatrix* B);
 void LU_dec(MyMatrix* A);
 void LU_dec2(MyMatrix* A);
-void forward_sol(MyMatrix* A, std::vector<real>* F);
-void backward_sol(MyMatrix* A, std::vector<real>* F);
+void forward_sol(MyMatrix A, std::vector<real> F);
+void backward_sol(MyMatrix A, std::vector<real> F);
 void LU_sol(MyMatrix* A, std::vector<real>* F);
 
 void CalcX(MyMatrix* A, std::vector<real>* F);

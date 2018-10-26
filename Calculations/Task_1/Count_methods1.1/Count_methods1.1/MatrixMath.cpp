@@ -49,31 +49,34 @@ void LU_dec(MyMatrix * A)
 	}
 }
 
-void forward_sol(MyMatrix* A, std::vector<real>* F)
-{	real sum;
-	for (int i = 0; i < A->height; i++)
+void forward_sol(MyMatrix A, std::vector<real> F) //правь
+{	
+	std::vector<double> Y(F.size());
+	real sum;
+	for (int i = 0; i < A.height; i++)
 	{
-		int j = i - A->width;
+		int j = i - A.width;
 		sum = 0;
-		for (int jL = 0; jL < A->width; jL++, j++)
-		{	if (j < 0) continue;
-			sum += A->lower[i][jL] * F->at(j);
+		for (int jL = 0; jL < A.width; jL++, j++)
+		{	
+			if (j < 0) continue;
+			sum += A.lower[i][jL] * F[j];
 		}
-		F->at(i) -= sum;
+		F[i] -= sum;
 	}
 }
 
-void backward_sol(MyMatrix* A, std::vector<real>* F)
+void backward_sol(MyMatrix A, std::vector<real> F) //правь
 {	
-	std::vector<double> tmp(F->size());
-	for (int i = A->height - 1; i >= 0; i--)
+	std::vector<double> tmp(F.size());
+	for (int i = A.height - 1; i >= 0; i--)
 	{
-		int j = i - A->width;
-		real Xi = F->at(i) / A->diag[i];
-		for (int jL = 0; jL < A->width; jL++, j++)
+		int j = i - A.width;
+		real Xi = F[i] / A.diag[i];
+		for (int jL = 0; jL < A.width; jL++, j++)
 		{
 			if (j < 0) continue;
-			F->at(j) -= A->upper[i][jL] * Xi;
+			F[j]-= A.upper[i][jL] * Xi;
 
 		}
 		tmp[i] = Xi;
