@@ -1,28 +1,6 @@
 ﻿#include "MatrixMath.h"
 
-void mult_MatOnVect(MyMatrix * A, std::vector<real>* V)
-{
-	std::vector<real> tmp;
-	for (unsigned i = 0; i < A->height; ++i)
-	{   tmp.push_back(0);
-		for (unsigned j = 0; j < A->width; ++j) //lower triangle 
-		{
-			tmp[i] += (A->lower[i][j]) * (*V)[i];
-		}
-		tmp[i] += A->diag[i] * (*V)[i]; //diagonal
-		
-		for (unsigned j = 0; j < A->width; ++j) //upper triangle 
-		{   if (i + 1 + j < A->height)
-			    tmp[i] += (A->upper[i + 1 + j][A->width - 1 - j]) * (*V)[i]; 
-		}
-	}
-	*V = tmp; 
-}
-
-void mult_MatOnMat(MyMatrix * A, MyMatrix * B)
-{
-	/*smh vertical vector*/
-}
+//сравнивать с LLT
 
 void LU_dec(MyMatrix * A)
 { //разложение LU
@@ -66,7 +44,7 @@ void forward_sol(MyMatrix A, std::vector<real> F) //правь
 	}
 }
 
-void backward_sol(MyMatrix A, std::vector<real> F) //правь
+std::vector<double> backward_sol(MyMatrix A, std::vector<real>  F) //правь
 {	
 	std::vector<double> tmp(F.size());
 	for (int i = A.height - 1; i >= 0; i--)
@@ -81,14 +59,14 @@ void backward_sol(MyMatrix A, std::vector<real> F) //правь
 		}
 		tmp[i] = Xi;
 	}
+	return tmp;
 }
 
-/*
 void LU_sol(MyMatrix* A, std::vector<real> F)
 {
-	forward_sol(A, F);
-	backward_sol(A, F);
-}*/
+	forward_sol(*A, F);
+	backward_sol(*A, F);
+}
 
 MyMatrix HilbertMat(const unsigned size) //all stored in
 {
@@ -129,5 +107,10 @@ MyMatrix HilbertMat(const unsigned size) //all stored in
 	A.upper = A.lower; //becouse Hilbert matrix is symertical
 
 	return A;
+}
+
+void makeDetNotZero(MyMatrix * A, int k)
+{
+	A->diag[0] += pow(10, -k);
 }
 
