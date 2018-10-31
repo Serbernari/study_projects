@@ -9,11 +9,12 @@ public:
 
 const inf_int& operator+(inf_int& i); //разобраться с перегрузкой и ссылками
 const inf_int& operator-(const inf_int& i);
-const inf_int& operator*(const inf_int& i);
+const inf_int& operator*(inf_int& i);
 const inf_int& operator/(const inf_int& i);
 const inf_int& pow (inf_int& a, const inf_int& b);
 
     inf_int();
+	inf_int(unsigned long long size);
 	inf_int(std::string* f_diag);
 	~inf_int();
 

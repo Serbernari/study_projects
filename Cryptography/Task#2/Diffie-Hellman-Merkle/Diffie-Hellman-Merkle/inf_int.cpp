@@ -44,9 +44,56 @@ const inf_int & inf_int::operator-(const inf_int & i)
 	// TODO: вставьте здесь оператор return
 }
 
-const inf_int & inf_int::operator*(const inf_int & i)
+const inf_int & inf_int::operator*( inf_int & b)
 {
-	return i;
+		auto len = this->storage.size();
+		inf_int res(2 * len);
+		
+		auto k = len / 2;
+		inf_int Xr(k);
+		std::copy(this->storage.begin(), this->storage.begin() + k,
+			std::back_inserter(Xr.storage));
+		inf_int Xl(k);
+		std::copy(this->storage.begin() + k, this->storage.end(),
+			std::back_inserter(Xl.storage));
+		inf_int Yr(k);
+		std::copy(b.storage.begin(), b.storage.begin() + k,
+			std::back_inserter(Yr.storage));
+		inf_int Yl(k);
+		std::copy(b.storage.begin() + k, b.storage.end(),
+			std::back_inserter(Yl.storage));
+				
+		inf_int P1 = Xl * Yl;
+		inf_int P2 = Xr * Yr;
+
+		inf_int Xlr(k);
+		inf_int Ylr(k);
+
+		for (int i = 0; i < k; ++i) {
+			Xlr.storage[i] = Xl.storage[i] + Xr.storage[i];
+			Ylr.storage[i] = Yl.storage[i] + Yr.storage[i];
+		}
+
+		inf_int P3 = Xlr * Ylr;
+
+		for (auto i = 0; i < len; ++i) {
+			P3.storage[i] -= P2.storage[i] + P1.storage[i];
+		}
+
+		for (auto i = 0; i < len; ++i) {
+			res.storage[i] = P2.storage[i];
+		}
+
+		for (auto i = len; i < 2 * len; ++i) {
+			res.storage[i] = P1.storage[i - len];
+		}
+
+		for (auto i = k; i < len + k; ++i) {
+			res.storage[i] += P3.storage[i - k];
+		}
+
+		return res;
+	
 	// TODO: вставьте здесь оператор return
 }
 
@@ -71,6 +118,10 @@ inf_int::inf_int()
 {
 }
 
+inf_int::inf_int(unsigned long long size)
+{
+	storage.reserve(sizeof(char) * size);
+}
 
 inf_int::inf_int(std::string* f_input)
 {
