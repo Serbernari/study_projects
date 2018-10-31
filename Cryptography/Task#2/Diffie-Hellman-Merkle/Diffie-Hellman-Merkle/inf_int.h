@@ -7,7 +7,7 @@ class inf_int
 {
 public:
 
-const inf_int& operator+(const inf_int& i); //разобраться с перегрузкой и ссылками
+const inf_int& operator+(inf_int& i); //разобраться с перегрузкой и ссылками
 const inf_int& operator-(const inf_int& i);
 const inf_int& operator*(const inf_int& i);
 const inf_int& operator/(const inf_int& i);

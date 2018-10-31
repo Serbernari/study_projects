@@ -3,8 +3,9 @@
 #include <iterator>
 using namespace::std;
 
-const inf_int & inf_int::operator+(const inf_int & i)
+const inf_int & inf_int::operator+(inf_int & i)
 {
+	i.storage[0] = 7;
 	return i;
 	// TODO: вставьте здесь оператор return
 }
@@ -52,10 +53,19 @@ inf_int::inf_int(std::string* f_input)
 		{
 			throw 404;
 		}
-		std::copy(std::istream_iterator<char>(input),
+		char tmp;
+		while (input >> tmp)
+		{
+			storage.push_back(tmp);
+			storage.back() -= '0';
+		}
+		input.close();
+
+		/*std::copy(std::istream_iterator<char>(input),
 	    		  std::istream_iterator<char>(),
 				  std::back_inserter(storage));
-		input.close();
+		input.close();*/
+
 	}
 	catch (int err)
 	{
