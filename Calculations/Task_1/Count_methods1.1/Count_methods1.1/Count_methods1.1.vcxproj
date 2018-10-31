@@ -126,7 +126,6 @@
     <ClInclude Include="MyMatrix.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="..\..\..\Task1_files\B.txt" />
     <Text Include="..\..\..\Task1_files\f_diag.txt" />
     <Text Include="..\..\..\Task1_files\f_lower.txt" />
     <Text Include="..\..\..\Task1_files\f_out.txt" />

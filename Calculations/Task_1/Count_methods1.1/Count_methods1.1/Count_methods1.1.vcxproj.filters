@@ -49,9 +49,6 @@
     <Text Include="..\..\..\Task1_files\f_upper.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>
-    <Text Include="..\..\..\Task1_files\B.txt">
-      <Filter>Файлы ресурсов</Filter>
-    </Text>
     <Text Include="..\..\..\Task1_files\f_out.txt">
       <Filter>Файлы ресурсов</Filter>
     </Text>

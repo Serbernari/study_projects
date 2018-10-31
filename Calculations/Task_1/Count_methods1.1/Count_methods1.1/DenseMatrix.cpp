@@ -73,7 +73,7 @@ void DenseMatrix::gaussMethod(real* b)
 
 	//resolve equations
 	int countX = 0;
-	for (int step = 9; step >= 0; --step) { //чому 9?
+	for (int step = 9; step >= 0; --step) { 
 		int j = line_sequence[step];
 		real sum = 0;
 		for (int i = size - 1; i >= step; --i) {

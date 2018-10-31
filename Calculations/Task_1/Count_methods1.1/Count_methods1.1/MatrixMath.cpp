@@ -1,6 +1,5 @@
 ﻿#include "MatrixMath.h"
 
-//сравнивать с LLT
 
 void LU_dec(MyMatrix * A)
 { //разложение LU
@@ -19,15 +18,15 @@ void LU_dec(MyMatrix * A)
 				sum_l += A->lower[i][kL] * A->upper[j][kU];
 				sum_u += A->upper[i][kL] * A->lower[j][kU];
 			}
-			A->lower[i][jL] = A->lower[i][jL] - sum_l;
-			A->upper[i][jL] = (A->upper[i][jL] - sum_u) / A->diag[j];
+			A->lower[i][jL] = (A->lower[i][jL] - sum_l) / A->diag[j];;
+			A->upper[i][jL] = (A->upper[i][jL] - sum_u);
 			sum_d += A->lower[i][jL] * A->upper[i][jL];
 		}
 		A->diag[i] = A->diag[i] - sum_d;
 	}
 }
 
-void forward_sol(MyMatrix A, std::vector<real> F) //правь
+std::vector<double> forward_sol(MyMatrix A, std::vector<real> F) 
 {	
 	std::vector<double> Y(F.size());
 	real sum;
@@ -38,13 +37,14 @@ void forward_sol(MyMatrix A, std::vector<real> F) //правь
 		for (int jL = 0; jL < A.width; jL++, j++)
 		{	
 			if (j < 0) continue;
-			sum += A.lower[i][jL] * F[j];
+			sum += A.lower[i][jL] * Y[j];
 		}
-		F[i] -= sum;
+		Y[i] = F[i] - sum;
 	}
+	return Y;
 }
 
-std::vector<double> backward_sol(MyMatrix A, std::vector<real>  F) //правь
+std::vector<double> backward_sol(MyMatrix A, std::vector<real>  F) 
 {	
 	std::vector<double> tmp(F.size());
 	for (int i = A.height - 1; i >= 0; i--)
@@ -72,7 +72,7 @@ MyMatrix HilbertMat(const unsigned size) //all stored in
 {
 	MyMatrix A;
 	A.height = size;
-	A.width = size - 1 ; //ACHTUNG
+	A.width = size - 1 ; 
 	std::vector<real> tmp;
 	for (unsigned j = 0; j < size - 1; ++j)
 		tmp.push_back(0);
