@@ -1,4 +1,4 @@
-#include "inf_int.h"
+п»ї#include "inf_int.h"
 #include <fstream>
 #include <iterator>
 #include <algorithm>
@@ -6,18 +6,18 @@ using namespace::std;
 
 const inf_int & inf_int::operator+(inf_int & b)
 {
-	// определяем длину массива суммы
+	// РѕРїСЂРµРґРµР»СЏРµРј РґР»РёРЅСѓ РјР°СЃСЃРёРІР° СЃСѓРјРјС‹
 	if (this->storage.size() > b.storage.size())
 	{
 		const long long difference = this->storage.size() - b.storage.size();
 		for (int i = 0; i <= difference; ++i)
 		{
-			this->storage[i] += b.storage[i]; // суммируем последние разряды чисел
+			this->storage[i] += b.storage[i]; // СЃСѓРјРјРёСЂСѓРµРј РїРѕСЃР»РµРґРЅРёРµ СЂР°Р·СЂСЏРґС‹ С‡РёСЃРµР»
 			if (i != difference)
-				this->storage[i + 1] += (this->storage[i] / 10);  // если есть разряд для переноса, переносим его в следующий разряд
+				this->storage[i + 1] += (this->storage[i] / 10);  // РµСЃР»Рё РµСЃС‚СЊ СЂР°Р·СЂСЏРґ РґР»СЏ РїРµСЂРµРЅРѕСЃР°, РїРµСЂРµРЅРѕСЃРёРј РµРіРѕ РІ СЃР»РµРґСѓСЋС‰РёР№ СЂР°Р·СЂСЏРґ
 			else
 				this->storage.push_back(this->storage[i] / 10);
-			this->storage[i] %= 10; // если есть разряд для переноса он отсекается
+			this->storage[i] %= 10; // РµСЃР»Рё РµСЃС‚СЊ СЂР°Р·СЂСЏРґ РґР»СЏ РїРµСЂРµРЅРѕСЃР° РѕРЅ РѕС‚СЃРµРєР°РµС‚СЃСЏ
 		}
 	}
 	else
@@ -25,12 +25,12 @@ const inf_int & inf_int::operator+(inf_int & b)
 		const long long difference = b.storage.size() - this->storage.size();
 		for (int i = 0; i <= difference; ++i)
 		{
-			this->storage[i] += b.storage[i]; // суммируем последние разряды чисел
+			this->storage[i] += b.storage[i]; // СЃСѓРјРјРёСЂСѓРµРј РїРѕСЃР»РµРґРЅРёРµ СЂР°Р·СЂСЏРґС‹ С‡РёСЃРµР»
 			if (i != difference)
-				this->storage[i + 1] += (this->storage[i] / 10);  // если есть разряд для переноса, переносим его в следующий разряд
+				this->storage[i + 1] += (this->storage[i] / 10);  // РµСЃР»Рё РµСЃС‚СЊ СЂР°Р·СЂСЏРґ РґР»СЏ РїРµСЂРµРЅРѕСЃР°, РїРµСЂРµРЅРѕСЃРёРј РµРіРѕ РІ СЃР»РµРґСѓСЋС‰РёР№ СЂР°Р·СЂСЏРґ
 			else
 				this->storage.push_back(this->storage[i] / 10);
-			this->storage[i] %= 10; // если есть разряд для переноса он отсекается
+			this->storage[i] %= 10; // РµСЃР»Рё РµСЃС‚СЊ СЂР°Р·СЂСЏРґ РґР»СЏ РїРµСЂРµРЅРѕСЃР° РѕРЅ РѕС‚СЃРµРєР°РµС‚СЃСЏ
 		}
 	}
 	return *this;
@@ -39,17 +39,22 @@ const inf_int & inf_int::operator+(inf_int & b)
 const inf_int & inf_int::operator-(const inf_int & i)
 {
 	return i;
-	// TODO: вставьте здесь оператор return
+	// TODO: РІСЃС‚Р°РІСЊС‚Рµ Р·РґРµСЃСЊ РѕРїРµСЂР°С‚РѕСЂ return
 }
 
 inf_int naive_mul(const inf_int& x, const inf_int& y) 
 {
-	auto len = x.storage.size();
-	inf_int res(2 * len);
-
-	for (auto i = 0; i < len; ++i) {
-		for (auto j = 0; j < len; ++j) {
+	int len = x.storage.size();
+	inf_int res(2 * len + 1);
+	/*
+	for (int i = 0; i < len; ++i) {
+		for (int j = 0; j < len; ++j) {
 			res.storage[i + j] += x.storage[i] * y.storage[j];				
+		}
+	}*/
+	for (int i = 0; i < len; ++i) {
+		for (int j = 0; j < len; ++j) {
+			res.storage[i + j] += x.storage[i] * y.storage[j];
 		}
 	}
 	return res;
@@ -86,7 +91,7 @@ const inf_int inf_int::operator*(inf_int & b)
 	return tmp;
 }
 
-inf_int inf_int::karatsuba_mul(const inf_int & A, const inf_int & B) //сделать функцию а на нее оболочку оператора
+inf_int inf_int::karatsuba_mul(const inf_int & A, const inf_int & B) 
 {
 	inf_int a = A;
 	inf_int b = B;
@@ -153,7 +158,7 @@ inf_int inf_int::karatsuba_mul(const inf_int & A, const inf_int & B) //сделать ф
 const inf_int & inf_int::operator/(const inf_int & i)
 {
 	return i;
-	// TODO: вставьте здесь оператор return
+	// TODO: РІСЃС‚Р°РІСЊС‚Рµ Р·РґРµСЃСЊ РѕРїРµСЂР°С‚РѕСЂ return
 }
 
 const inf_int & inf_int::pow(inf_int & a, const inf_int & b)
@@ -162,15 +167,29 @@ const inf_int & inf_int::pow(inf_int & a, const inf_int & b)
 	return a;
 }
 
-inf_int  inf_int::pow(inf_int a, const int b)
+inf_int  inf_int::pow(inf_int a, int b)
 {
-	inf_int res(a.storage.size()); //очень-очень плохо
-	res = a;
-	extend_storage(res, a.storage.size() * b);
-	if (b > 0)
-	{
-		for (int i = b; i > 1; --i)
+	/*inf_int res; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+	res.storage.push_back(1);
+		for (int i = b; i > 0; --i)
 		{
+			res = res * a;
+		}
+	return res;*/
+	
+	inf_int res;
+	res.storage.push_back(1);//
+	extend_storage(res, a.storage.size() *  b);
+	while (b)
+	{
+		if (b % 2 == 0)
+		{
+			b /= 2;
+			a = a * a;
+	    }		
+		else
+		{
+			--b;
 			res = res * a;
 		}
 	}
