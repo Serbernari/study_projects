@@ -76,15 +76,18 @@ void finalize(inf_int& res)
 	}
 }
 
-const inf_int & inf_int::operator*(inf_int & b)
+const inf_int inf_int::operator*(inf_int & b)
 {
-	b = karatsuba_mul(*this, b);
-	finalize(b);
-	return b;
+	inf_int tmp = karatsuba_mul(*this, b);
+	finalize(tmp);
+	return tmp;
 }
 
-inf_int inf_int::karatsuba_mul( inf_int & a, inf_int & b) //ñäåëàòü ôóíêöèş à íà íåå îáîëî÷êó îïåğàòîğà
+inf_int inf_int::karatsuba_mul(const inf_int & A, const inf_int & B) //ñäåëàòü ôóíêöèş à íà íåå îáîëî÷êó îïåğàòîğà
 {
+	inf_int a = A;
+	inf_int b = B;
+
 	auto len_change = max(a.storage.size(), b.storage.size());
 	extend_storage(a, len_change);
 	extend_storage(b, len_change);
@@ -152,7 +155,23 @@ const inf_int & inf_int::operator/(const inf_int & i)
 
 const inf_int & inf_int::pow(inf_int & a, const inf_int & b)
 {
+	//while i'll do this later
 	return a;
+}
+
+inf_int  inf_int::pow(inf_int a, const int b)
+{
+	inf_int res(a.storage.size()); //î÷åíü-î÷åíü ïëîõî
+	res = a;
+	extend_storage(res, a.storage.size() * b);
+	if (b > 0)
+	{
+		for (int i = b; i > 1; --i)
+		{
+			res = res * a;
+		}
+	}
+	return res;
 }
 
 /*
