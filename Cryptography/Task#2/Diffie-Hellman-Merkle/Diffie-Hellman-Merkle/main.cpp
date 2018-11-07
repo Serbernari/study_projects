@@ -9,7 +9,7 @@ int main()
 	b = b * a; //3
 
 	inf_int c;
-	c = inf_int::pow(a, 3);
+	c = inf_int::pow(a, 100);
 
 	return 0;
 }

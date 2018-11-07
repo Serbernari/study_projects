@@ -74,6 +74,9 @@ void finalize(inf_int& res)
 		res.storage[i + 1] += res.storage[i] / 10;
 		res.storage[i] %= 10;
 	}
+
+	while ( res.storage.back() == 0)
+		res.storage.pop_back();
 }
 
 const inf_int inf_int::operator*(inf_int & b)
