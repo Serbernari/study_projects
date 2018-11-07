@@ -4,8 +4,6 @@
 #include <algorithm>
 using namespace::std;
 
-//делать таки как у хохлушки, куча блоков размером int в количестве int штук, иначе смысла нет же
-
 const inf_int & inf_int::operator+(inf_int & b)
 {
 	// определяем длину массива суммы
@@ -44,57 +42,106 @@ const inf_int & inf_int::operator-(const inf_int & i)
 	// TODO: вставьте здесь оператор return
 }
 
-const inf_int & inf_int::operator*( inf_int & b)
+inf_int naive_mul(const inf_int& x, const inf_int& y) 
 {
-		auto len = this->storage.size();
-		inf_int res(2 * len);
-		
-		auto k = len / 2;
-		inf_int Xr(k);
-		std::copy(this->storage.begin(), this->storage.begin() + k,
-			std::back_inserter(Xr.storage));
-		inf_int Xl(k);
-		std::copy(this->storage.begin() + k, this->storage.end(),
-			std::back_inserter(Xl.storage));
-		inf_int Yr(k);
-		std::copy(b.storage.begin(), b.storage.begin() + k,
-			std::back_inserter(Yr.storage));
-		inf_int Yl(k);
-		std::copy(b.storage.begin() + k, b.storage.end(),
-			std::back_inserter(Yl.storage));
-				
-		inf_int P1 = Xl * Yl;
-		inf_int P2 = Xr * Yr;
+	auto len = x.storage.size();
+	inf_int res(2 * len);
 
-		inf_int Xlr(k);
-		inf_int Ylr(k);
-
-		for (int i = 0; i < k; ++i) {
-			Xlr.storage[i] = Xl.storage[i] + Xr.storage[i];
-			Ylr.storage[i] = Yl.storage[i] + Yr.storage[i];
+	for (auto i = 0; i < len; ++i) {
+		for (auto j = 0; j < len; ++j) {
+			res.storage[i + j] += x.storage[i] * y.storage[j];				
 		}
+	}
+	return res;
+}
 
-		inf_int P3 = Xlr * Ylr;
+void extend_storage(inf_int & A, size_t len)
+{
+	if (len % 2 == 0)
+	{
+		A.storage.resize(len);
+	}
+	else
+	{
+		A.storage.resize(len + 1);
+	}
+}
 
-		for (auto i = 0; i < len; ++i) {
-			P3.storage[i] -= P2.storage[i] + P1.storage[i];
-		}
+void finalize(inf_int& res) 
+{
+	for (auto i = 0; i < res.storage.size() - 1; ++i) 
+	{
+		res.storage[i + 1] += res.storage[i] / 10;
+		res.storage[i] %= 10;
+	}
+}
 
-		for (auto i = 0; i < len; ++i) {
-			res.storage[i] = P2.storage[i];
-		}
+const inf_int & inf_int::operator*(inf_int & b)
+{
+	b = karatsuba_mul(*this, b);
+	finalize(b);
+	return b;
+}
 
-		for (auto i = len; i < 2 * len; ++i) {
-			res.storage[i] = P1.storage[i - len];
-		}
+inf_int inf_int::karatsuba_mul( inf_int & a, inf_int & b) //сделать функцию а на нее оболочку оператора
+{
+	auto len_change = max(a.storage.size(), b.storage.size());
+	extend_storage(a, len_change);
+	extend_storage(b, len_change);
 
-		for (auto i = k; i < len + k; ++i) {
-			res.storage[i] += P3.storage[i - k];
-		}
+	auto len = a.storage.size();
+	inf_int res(2 * len);
 
+	if (len <= 2) //magic const
+	{
+		res = naive_mul(a, b);
 		return res;
-	
-	// TODO: вставьте здесь оператор return
+	}
+
+	auto k = len / 2;
+
+	inf_int Xr;
+	Xr.storage = { a.storage.begin(), a.storage.begin() + k };
+	inf_int Xl;
+	Xl.storage = { a.storage.begin() + k, a.storage.end() };
+	inf_int Yr;
+	Yr.storage = { b.storage.begin(), b.storage.begin() + k };
+	inf_int Yl;
+	Yl.storage = { b.storage.begin() + k, b.storage.end() };
+
+	inf_int P1(len);
+	P1 = karatsuba_mul( Xl, Yl); // i dunno wtf orerator* wasnt working.
+	inf_int P2(len);
+	P2 = karatsuba_mul (Xr, Yr);
+
+	inf_int Xlr(k);
+	inf_int Ylr(k);
+
+	for (int i = 0; i < k; ++i) {
+		Xlr.storage[i] = Xl.storage[i] + Xr.storage[i];
+		Ylr.storage[i] = Yl.storage[i] + Yr.storage[i];
+	}
+
+	inf_int P3(len);
+	P3 = karatsuba_mul(Xlr , Ylr);
+	 
+	for (auto i = 0; i < len; ++i) {
+		P3.storage[i] -= P2.storage[i] + P1.storage[i];
+	}
+
+	for (auto i = 0; i < len; ++i) {
+		res.storage[i] = P2.storage[i];
+	}
+
+	for (auto i = len; i < 2 * len; ++i) {
+		res.storage[i] = P1.storage[i - len];
+	}
+
+	for (auto i = k; i < len + k; ++i) {
+		res.storage[i] += P3.storage[i - k];
+	}
+
+	return res;
 }
 
 const inf_int & inf_int::operator/(const inf_int & i)
@@ -107,6 +154,7 @@ const inf_int & inf_int::pow(inf_int & a, const inf_int & b)
 {
 	return a;
 }
+
 /*
 inf_int::inf_int()//reading number fron external file
 {
@@ -120,7 +168,11 @@ inf_int::inf_int()
 
 inf_int::inf_int(unsigned long long size)
 {
-	storage.reserve(sizeof(char) * size);
+	while (size != 0)
+	{
+		storage.push_back(0);
+		--size;
+    }
 }
 
 inf_int::inf_int(std::string* f_input)

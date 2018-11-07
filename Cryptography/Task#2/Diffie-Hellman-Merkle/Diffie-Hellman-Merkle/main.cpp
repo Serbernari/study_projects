@@ -4,7 +4,8 @@ int main()
 {
 	std::string way = "D:/GitHub/study_projects/Cryptography/Task#2/Diffie-Hellman-Merkle/first_number.txt";
 	inf_int a(&way);
-	a * a;
+	inf_int b;
+	b = a * a; //какого х...?
 
 	return 0;
 }
