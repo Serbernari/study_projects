@@ -9,7 +9,7 @@ int main()
 	inf_int c;
 	inf_int d;
 
-	c = inf_int::pow(a, 1000);
+	c = inf_int::pow(a, 31);
 
 	return 0;
 }
