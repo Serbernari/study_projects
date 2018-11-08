@@ -9,8 +9,7 @@ int main()
 	inf_int c;
 	inf_int d;
 
-	c = inf_int::pow(a, 15);
-	b = inf_int::pow(a, 16);
-	d = b * c;
+	c = inf_int::pow(a, 1000);
+
 	return 0;
 }

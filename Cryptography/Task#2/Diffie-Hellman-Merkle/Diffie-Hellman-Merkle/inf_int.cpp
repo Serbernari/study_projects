@@ -174,7 +174,6 @@ inf_int  inf_int::pow(inf_int a, int b)
 	
 	inf_int res;
 	res.storage.push_back(1);//
-	//extend_storage(res, a.storage.size() *  b);
 	while (b)
 	{
 		if (b % 2 == 0)

@@ -24,6 +24,6 @@ inf_int karatsuba_mul(const inf_int & A, const inf_int & B);
 
 
 	inf_int naitive_mul(inf_int* A, inf_int* B);
-	std::vector<unsigned char> storage; //as long as one symbol {0,1...9} is 8 bit we should use char. Or shouldn't we?...
+	std::vector<short unsigned int> storage; //as long as one symbol {0,1...9} is 8 bit we should use char. Or shouldn't we?...
 };
 
