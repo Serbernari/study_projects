@@ -4,7 +4,7 @@
 #include <fstream>
 #include <vector>
 #include <iterator>
-typedef double real;
+typedef double real; //
 
 class MyMatrix
 {
