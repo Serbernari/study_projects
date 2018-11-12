@@ -4,12 +4,15 @@
 
 .CODE; сегмент кода
 _FUNC@12 PROC
+
 push ebp
 mov ebp, esp
+mov esi, [esp] + 8
+cmp ecx,10
+je if_empty
 mov ecx, [esp] + 16
 cmp ecx,0
 je if_empty
-mov esi, [esp] + 8
 
 Perebor:
 mov bl, [esi]
