@@ -8,7 +8,8 @@ _FUNC@12 PROC
 push ebp
 mov ebp, esp
 mov esi, [esp] + 8
-cmp ecx,10
+mov al, [esp] + 12
+cmp al,10
 je if_empty
 mov ecx, [esp] + 16
 cmp ecx,0
