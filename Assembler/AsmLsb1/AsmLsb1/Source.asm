@@ -246,7 +246,7 @@ PUSH OFFSET BUF
 CALL lstrlenA@4
 PUSH 0
 PUSH OFFSET LENS
-PUSH eax			; длина выводимой строки
+PUSH eax		; длина выводимой строки
 PUSH OFFSET BUF
 PUSH DOUT
 CALL WriteConsoleA@20
@@ -254,7 +254,7 @@ CALL WriteConsoleA@20
 ;**************************************
 ; выход из программы 
 
-PUSH 0				; параметр: код выхода
+PUSH 0			; параметр: код выхода
 CALL ExitProcess@4
 MAIN ENDP
 End MAIN
