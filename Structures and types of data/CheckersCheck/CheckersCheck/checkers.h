@@ -4,10 +4,10 @@
 
 struct cell
 {
-	bool is_correct; //true if is cell can be played in checkers
-	bool is_buisy;  //true if there is a man in that cell
-	bool is_king; //true if this man is a king
-	bool is_white; //true if this man is a white
+	bool is_correct = true; //true if is cell can be played in checkers
+	bool is_buisy = false;  //true if there is a man in that cell
+	bool is_king = false; //true if this man is a king
+	bool is_white = false; //true if this man is a white
 	std::pair<unsigned short, unsigned short> pos; //coordinates of the cell
 
 };
