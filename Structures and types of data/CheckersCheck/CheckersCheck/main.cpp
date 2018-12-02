@@ -40,19 +40,28 @@ int main()
 				&& event.mouseButton.x > 60 && event.mouseButton.x < 740)
 			{
 				sf::CircleShape shape(28.f);
+				shape.setOutlineThickness(10.f);
+				shape.setOutlineColor(sf::Color(250, 150, 100));
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					shape.setFillColor(sf::Color::White);
 					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_white = true;
 					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_buisy = true;
 				}
+				if (event.mouseButton.button == sf::Mouse::Middle)
+				{
+					shape.setFillColor(sf::Color::White);
+					shape.setOutlineColor(sf::Color(255, 50, 0));
+					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_white = true;
+					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_buisy = true;
+					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_king = true;
+				}
 				else if (event.mouseButton.button == sf::Mouse::Right)
 				{
 					shape.setFillColor(sf::Color::Black);
 					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_buisy = true;
 				}
-				shape.setOutlineThickness(10.f);
-				shape.setOutlineColor(sf::Color(250, 150, 100));
+				
 				shape.setPosition(event.mouseButton.x - 28, event.mouseButton.y - 28);
 				figures.push_back(shape);
 				
