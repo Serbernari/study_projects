@@ -14,6 +14,7 @@ int main()
 	sf::RenderWindow StartWindow(sf::VideoMode(400, 200), "Controls");
 
 	board MyBoard;
+
 	std::vector<sf::CircleShape> figures;
 	
 	sf::RectangleShape background(sf::Vector2f(800.f, 800.f));
