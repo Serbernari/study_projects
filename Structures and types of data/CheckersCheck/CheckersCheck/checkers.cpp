@@ -17,11 +17,20 @@ bool possibilityToMove(board * MyBoard)
 				{
 					if (MyBoard->field[i][j].is_king) //»граем дамкой?
 					{
-						if (!(j >= 1 ? MyBoard->field[i - 1][j - 1].is_buisy : true && j < width - 1 ? MyBoard->field[i - 1][j + 1].is_buisy : true))// клетки ниже свободны?
+						if (!(j >= 1 ? MyBoard->field[i - 1][j - 1].is_buisy : true) || !(j < width - 1 ? MyBoard->field[i - 1][j + 1].is_buisy : true))// клетки ниже свободны?
 						{
 							return true;
 						}
-						else continue;
+						else if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false)
+							&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true)) //за ними есть свободные куда можно рубить?
+
+							|| ((j < width - 1 ? (MyBoard->field[i - 1][j + 1].is_buisy && !(MyBoard->field[i - 1][j + 1].is_white)) : false)
+								&& (!(j < width - 2 ? MyBoard->field[i - 2][j + 2].is_buisy : true))))
+
+						{
+							return true;
+						}
+						continue;
 					}
 
 					if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false)
