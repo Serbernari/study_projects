@@ -25,9 +25,11 @@ bool possibilityToMove(board * MyBoard)
 					}
 
 					if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false)
-							&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true) //за ними есть свободные куда можно рубить?
-							|| !(j < width - 1 ? MyBoard->field[i - 2][j + 2].is_buisy : true) && (j < width - 1 ? (MyBoard->field[i - 1][j + 1].is_buisy
-							&& !(MyBoard->field[i - 1][j + 1].is_white)) : false)))
+						&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true)) //за ними есть свободные куда можно рубить?
+
+						|| ( (j < width - 1 ? (MyBoard->field[i - 1][j + 1].is_buisy && !(MyBoard->field[i - 1][j + 1].is_white)) : false)
+						&& (!(j < width - 2 ? MyBoard->field[i - 2][j + 2].is_buisy : true)) ))
+					
 					{
 						return true;
 					}
@@ -49,10 +51,11 @@ bool possibilityToMove(board * MyBoard)
 							}
 							else 
 							{
-								if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false) 
-									&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true) //за ними есть свободные куда можно рубить?
-									|| !(j < width - 1 ? MyBoard->field[i - 2][j + 2].is_buisy : true) && (j < width - 1 ? (MyBoard->field[i - 1][j + 1].is_buisy 
-									&& !(MyBoard->field[i - 1][j + 1].is_white)) : false)))
+								if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false)
+									&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true)) //за ними есть свободные куда можно рубить?
+
+									|| ((j < width - 1 ? (MyBoard->field[i - 1][j + 1].is_buisy && !(MyBoard->field[i - 1][j + 1].is_white)) : false)
+									&& (!(j < width - 2 ? MyBoard->field[i - 2][j + 2].is_buisy : true)) ))
 								{
 									return true;
 								}
