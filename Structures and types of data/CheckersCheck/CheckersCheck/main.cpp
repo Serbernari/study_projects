@@ -10,14 +10,20 @@ int CoordToNumber(double coord)
 
 int main()
 {
+	sf::RenderWindow MainWindow(sf::VideoMode(800, 800), "Checkers Check");
+	sf::RenderWindow StartWindow(sf::VideoMode(400, 200), "Controls");
 
-	sf::RenderWindow window(sf::VideoMode(800, 800), "Checkers Check");
-
+	board MyBoard;
 	std::vector<sf::CircleShape> figures;
-
-
+	
 	sf::RectangleShape background(sf::Vector2f(800.f, 800.f));
 	background.setFillColor(sf::Color::White);
+	
+	sf::Font font;
+	if (!font.loadFromFile("Roboto-Regular.ttf"))
+	{
+
+	}
 
 	sf::Texture desk_texture;
 	if (!desk_texture.loadFromFile("desk_texture_file.png"))
@@ -25,23 +31,40 @@ int main()
 		// error...
 	}
 	background.setTexture(&desk_texture);
+	
+	sf::Text text;
+	text.setFont(font); // font is a sf::Font
+	text.setString("LMB - put a white checker \nRMB - put a black checker \nMMB - put a white king \nENTER - check possibility to move");
+	text.setCharacterSize(24); // in pixels, not points!
+	text.setFillColor(sf::Color::White);
 
-	board MyBoard;
-
-	while (window.isOpen())
+	while (StartWindow.isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (StartWindow.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
-			if (event.type == sf::Event::MouseButtonReleased && figures.size() < 24 
+				StartWindow.close();
+		}
+		StartWindow.draw(text);
+		StartWindow.display();
+	}
+
+	while (MainWindow.isOpen())
+	{
+		sf::Event event;
+		while (MainWindow.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				MainWindow.close();
+			if (event.type == sf::Event::MouseButtonReleased && figures.size() < 24
 				&& event.mouseButton.y > 60 && event.mouseButton.y < 740
 				&& event.mouseButton.x > 60 && event.mouseButton.x < 740)
 			{
 				sf::CircleShape shape(28.f);
 				shape.setOutlineThickness(10.f);
 				shape.setOutlineColor(sf::Color(250, 150, 100));
+
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
 					shape.setFillColor(sf::Color::White);
@@ -61,34 +84,33 @@ int main()
 					shape.setFillColor(sf::Color::Black);
 					MyBoard.field[MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y)][CoordToNumber(event.mouseButton.x)].is_buisy = true;
 				}
-				
+
 				shape.setPosition(event.mouseButton.x - 28, event.mouseButton.y - 28);
 				figures.push_back(shape);
-				
-				std::cout << "button was pressed" << std::endl;
-				std::cout << "cell i: " << MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y) << std::endl;
-				std::cout << "cell j: " << CoordToNumber(event.mouseButton.x) << std::endl;
-			
-				
 			}
-			if (event.type == sf::Event::KeyReleased)
+			if ((event.type == sf::Event::KeyReleased) && (event.key.code == sf::Keyboard::Enter))
 			{
-				std::cout << "The answer is:" << std::endl;
-				if (event.key.code == sf::Keyboard::Enter)
-				{
-					possibilityToMove(&MyBoard) ? std::cout << "true" << std::endl : std::cout << "false" << std::endl;
-
+				sf::RenderWindow ResultWindow(sf::VideoMode(400, 50), "Answer");
+				possibilityToMove(&MyBoard) ? text.setString("Whites can make a step") : text.setString("Whites cannot make a step");
+				text.setPosition(50, 10);
+									
+				ResultWindow.draw(text);
+				ResultWindow.display();
+				while (ResultWindow.isOpen())
+				{	sf::Event event;
+					while (ResultWindow.pollEvent(event))
+					{
+						if (event.type == sf::Event::Closed)
+							ResultWindow.close();
+					}
 				}
 			}
+			MainWindow.clear();
+			MainWindow.draw(background);
+			for (const auto& r : figures)
+				MainWindow.draw(r);
+			MainWindow.display();
 		}
-		window.clear();
-		window.draw(background);
-		for (const auto& r : figures)
-			window.draw(r);
-		window.display();
 	}
-	
-	bool res = possibilityToMove(&MyBoard);
-
 	return 0;
 }
