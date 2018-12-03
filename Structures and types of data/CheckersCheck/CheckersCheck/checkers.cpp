@@ -45,12 +45,13 @@ bool possibilityToMove(board * MyBoard)
 					{
 						if (!((j > 0 ? MyBoard->field[i + 1][j - 1].is_white : true) && ((j < width - 1 ? MyBoard->field[i + 1][j + 1].is_white : true))))//клетки выше заняты черными?
 						{
-							if (!((j > 1 ? MyBoard->field[i + 2][j - 2].is_buisy : true) && (j < (width - 1) ? MyBoard->field[i + 2][j + 2].is_buisy : true))) //За ними выше есть свободные клетки?
+							if (!((j > 1 ? MyBoard->field[i + 2][j - 2].is_buisy : true) && ( (j < (width - 1)) ? MyBoard->field[i + 2][j + 2].is_buisy : true))) //За ними выше есть свободные клетки?
 							{
 								return true;
 							}
-							else 
+							else if (i >= 2)
 							{
+
 								if ((j >= 1 ? (MyBoard->field[i - 1][j - 1].is_buisy && !(MyBoard->field[i - 1][j - 1].is_white)) : false)
 									&& (!(j >= 2 ? MyBoard->field[i - 2][j - 2].is_buisy : true)) //за ними есть свободные куда можно рубить?
 

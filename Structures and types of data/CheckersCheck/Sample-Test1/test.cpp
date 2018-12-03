@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 	return RUN_ALL_TESTS();
 }
 
-TEST(CheckerTest, EmptyField) {
+TEST(CheckerTest, Empty_field) {
 	board MyBoard;
     EXPECT_FALSE(possibilityToMove(&MyBoard));
 }
@@ -95,5 +95,12 @@ TEST(CheckerTest, King_can_go_back) {
 	MyBoard.field[7][4].is_king = true;
 	EXPECT_TRUE(possibilityToMove(&MyBoard));
 }
-
+TEST(CheckerTest, White_cannot_go_from_corner) {
+	board MyBoard;
+	MyBoard.field[2][2].is_buisy = true;
+	MyBoard.field[1][1].is_buisy = true;
+	MyBoard.field[0][0].is_buisy = true;
+	MyBoard.field[0][0].is_white = true;
+	EXPECT_FALSE(possibilityToMove(&MyBoard));
+}
 
