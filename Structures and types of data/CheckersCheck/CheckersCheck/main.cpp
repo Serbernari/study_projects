@@ -4,7 +4,7 @@
 
 int CoordToNumber(double coord)
 {
-	int a = 40;
+	int a = (int)coord/8 + 40;
 	return ((int)coord + a) / 100 - 1;
 }
 
@@ -66,8 +66,9 @@ int main()
 				figures.push_back(shape);
 				
 				std::cout << "button was pressed" << std::endl;
-				std::cout << "mouse x: " << event.mouseButton.x << std::endl;
-				std::cout << "mouse y: " << event.mouseButton.y << std::endl;
+				std::cout << "cell i: " << MyBoard.field.size() - 1 - CoordToNumber(event.mouseButton.y) << std::endl;
+				std::cout << "cell j: " << CoordToNumber(event.mouseButton.x) << std::endl;
+			
 				
 			}
 			if (event.type == sf::Event::KeyReleased)
