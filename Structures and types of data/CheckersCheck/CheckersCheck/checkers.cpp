@@ -54,7 +54,7 @@ bool possibilityToMove(board * MyBoard)
 					{
 						if (!((j > 0 ? MyBoard->field[i + 1][j - 1].is_white : true) && ((j < width - 1 ? MyBoard->field[i + 1][j + 1].is_white : true))))//клетки выше зан€ты черными?
 						{
-							if (!((j > 1 ? MyBoard->field[i + 2][j - 2].is_buisy : true) && ( (j < (width - 1)) ? MyBoard->field[i + 2][j + 2].is_buisy : true))) //«а ними выше есть свободные клетки?
+							if (!(( ((j > 1)&&(i < width-2)) ? MyBoard->field[i + 2][j - 2].is_buisy : true) && ( (j < (width - 2) && (i < width - 2)) ? MyBoard->field[i + 2][j + 2].is_buisy : true))) //«а ними выше есть свободные клетки?
 							{
 								return true;
 							}

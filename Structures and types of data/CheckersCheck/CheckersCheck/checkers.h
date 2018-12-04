@@ -15,6 +15,7 @@ struct cell
 struct board
 {
 	std::array<std::array<cell, 8>,8> field;
+	/*std::vector<MyLogClass>; - при дальнейшем развитии проекта здесь будет храниться лог игры*/
 };
 
 bool possibilityToMove(board* MyBoard); //true if there is possible way for whites to make a step
