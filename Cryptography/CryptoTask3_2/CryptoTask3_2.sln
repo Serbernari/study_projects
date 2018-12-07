@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTask3", "CryptoTask3\CryptoTask3.csproj", "{F2DE6A51-B48B-4B42-BBA2-1ACCC56D7001}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoTask3_2", "CryptoTask3_2\CryptoTask3_2.csproj", "{5C2E59EF-C287-4966-B05F-192826966EB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F2DE6A51-B48B-4B42-BBA2-1ACCC56D7001}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F2DE6A51-B48B-4B42-BBA2-1ACCC56D7001}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F2DE6A51-B48B-4B42-BBA2-1ACCC56D7001}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F2DE6A51-B48B-4B42-BBA2-1ACCC56D7001}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2E59EF-C287-4966-B05F-192826966EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2E59EF-C287-4966-B05F-192826966EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2E59EF-C287-4966-B05F-192826966EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2E59EF-C287-4966-B05F-192826966EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {2255ABC2-7E77-4C51-9C3B-00E80ACD6E29}
+		SolutionGuid = {FA469624-46DF-4DA8-ABE5-C5D78F2832D1}
 	EndGlobalSection
 EndGlobal
