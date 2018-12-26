@@ -15,11 +15,11 @@ namespace ConsoleApplication12
 
         static void Main()
         {
-            //string publicKey = "<RSAKeyValue><Modulus>4IohZ4FOgm1p3hKvgJuXV0LEYgQeuqXryaN+bTLj0qK8nUowUCPT4aYB3SrL+I6hi6JuO+SpIblJUgpam1FDXSuNZSgOfBvKrpmur+oIe6Vb8GmK0Ujnpwg6t8XUp+vQOQ0Fmo6z9t5hRw6WI4jMDF0a6bt9Bp00rYkqERwht1U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-            //string secretKey = "<RSAKeyValue><Modulus>4IohZ4FOgm1p3hKvgJuXV0LEYgQeuqXryaN+bTLj0qK8nUowUCPT4aYB3SrL+I6hi6JuO+SpIblJUgpam1FDXSuNZSgOfBvKrpmur+oIe6Vb8GmK0Ujnpwg6t8XUp+vQOQ0Fmo6z9t5hRw6WI4jMDF0a6bt9Bp00rYkqERwht1U=</Modulus><Exponent>AQAB</Exponent><P>8u1Mpok9GyqcZJ5NpE082ZSFI3GjkFwCDdNhL6VTBFjU1rLjddHkGKPEIhaOtSsPSVtLuqn5OuaasL3IIOZpVw==</P><Q>7J+EGlxz7LHaTCFmKMganZpn4EFOqkbTMCdELepR7QZA9CLQQhLPopL79PbsIouuTiPlxyQGzsYcewO5EEc9Mw==</Q><DP>rWKhqtuZOaKYLVivoe1e2Q0gWcPqMkb5UFTmsNMXBatBflv/7T/5xXxdqNbg1H3/UyROUNSwhlHBZxSNmq3Z0Q==</DP><DQ>5OOtIt7Z2FV2h/wq2Tov3NJ2twwVb0tRkJv7LLskgrZw8HgYokGWDnpGNYEBjK03cCjzZX4pA63J8Qj55JA01w==</DQ><InverseQ>rqtS9e/qIC5J9qBtVSu6lvyNZhE0kCKErQvYmHGNfRm2TVpE3PA0ccLgNwSU9OEp0j3ySgeW9mApr8AuSpCwvQ==</InverseQ><D>t9Vfc/aR6Ibb3k0+EvVP+slXL0hgQEAHw5Zvs8eubo1+DujmlTZACsZ3UDPxuxZLfJ8H0VFsh4fDV7/SXscxdlXLQ7UR2PIAXxX+U7r/9ec4Q0fmbWCpR3lm66silUWly1AtF7lXB4iLEOUopbQV1eBDlZjki2XOMw5WxT1/hSE=</D></RSAKeyValue>";
-            Sign_rsa(secretKey);
+            string publicKey = "<RSAKeyValue><Modulus>xZSebMx5zUjPsQ45snc0R2iMOdoUnNz4nin8tN5/eHfut7tq+uqLz02YlPwA14tFnHWxuY520+DtXRi8beJ+7Fyk2AGLeEtRnJ9xkoMpT9iyPU207w/P9M9fia9e0oZ4pQEQ5w8nUjyUIsfAWOXW1EXewRiDGCCI9f6KvPVTRhE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+            string secretKey = "<RSAKeyValue><Modulus>lk5div6UsXmK5BBexmrgp3Oc5KoSd9gLS6K5G1nX6auRac24n0jDw7lFwP2rbEIT8Q7O7/E7ADboQRsgjuDj+3GeYucfCwDtmkfKmyNz1VUjOUje1VbYn7QmiYASzLdcuGbpWavRoX9GYSPg2fKAWRiSueD4TPbwUFzgf8UAs5U=</Modulus><Exponent>AQAB</Exponent><P>wZ6ffjgdIYxw8yDzJnwP3r7MCsUST0D48TFAxnxcWFWw/R8zlFjnblUHniwPMQuwwE3OMp7pEbGohgNfodBwKw==</P><Q>xrtTtwprJryyquQehlVjPxjrZ8H8uVG/adpvpKEmNqQT0n/aKWiqQ+BdBsNq/pDbxbRziS3eIGBG2PuXyMnLPw==</Q><DP>ZCBGdHxKPEYnRuO8OiOgBV1/oPYmsMt1sSz6RWqcSqYNv+g5wTZ0f+8C4H4CYSedgOT7g9v/xUGtV5g5BTIIPw==</DP><DQ>xRN51lfnoLeaOuwT9UVyMV1l/TQbii+uMavj8Q+6FI+r9KDDWTMpPjyeJBng3egLeckUliI9WEABoiYGBKFRAw==</DQ><InverseQ>TAxhL3MFTRpP6Hr/90FbAMcpUZe47EsRDtAbolg5M0KUadzLv+9LfNTN2u2gnH4PPkdAe+p18epOq6aDinKn0A==</InverseQ><D>NN5jsNxTWQmzfPz1GT3Gv5++8/+Od3EaqAQYsDIt7BdZEqo14nEpytKEYpnXjkC/2u6mg2eKpUyq7RupnBgmmGUgmVkqgyCHWOXmga+k9n8UpBrMzQgDNpj1BJ6GmQsTozL4AzU9mRE8hFPyewiGMBLtlhUc9fSFdABZMCj8GhE=</D></RSAKeyValue>";
+            //Sign_rsa(secretKey);
             //Check_rsa();
-            //EncryptImg();
+            EncryptImg();
             //DecryptImg(secretKey);
             Console.ReadKey();
         }
