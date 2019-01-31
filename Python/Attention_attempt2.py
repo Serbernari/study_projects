@@ -70,29 +70,23 @@ for word, i in word_index.items():
 print(np.linalg.norm(embedding_matrix[0]))
 
 model = Sequential()
-print(embedding_matrix[0])
-print(embedding_matrix[1])
-print(embedding_matrix[2])
-print(embedding_matrix[3])
-print(y_train[:10])
-print(y_test[:10])
 model.add(Embedding(num_words,
                     embedding_dim,
                     input_length=max_len, trainable = False, weights = [embedding_matrix]))
 #model.add(SpatialDropout1D(0.2))
-model.add(Bidirectional(LSTM(64, return_sequences=False)))
+model.add(Bidirectional(CuDNNLSTM(64, return_sequences=True)))
+model.add(Bidirectional(CuDNNLSTM(32)))
 #model.add(Dropout(0.25))
 model.add(Dense(units=10, activation='softmax'))
 model.summary()
 
-#model.layers[0].set_weights([embedding_matrix])
-#model.layers[0].trainable = False
 model.compile(loss = 'sparse_categorical_crossentropy', optimizer=RMSprop(clipnorm=1.0),metrics = ['accuracy'])
 
-batch_size = 128
+batch_size = 32
 indices = np.arange(0, len(y_train), 1, dtype=np.int32)
 np.random.shuffle(indices)
-history = model.fit(x_train[indices], y_train[indices]-1, epochs=5, batch_size=batch_size, verbose=1, validation_split=0.1)
+history = model.fit(x_train[indices], y_train[indices]-1, epochs=80, batch_size=batch_size, verbose=1, validation_split=0.1)
+
 #print (x_train, y_train)
 plt.plot(history.history['acc'])
 plt.plot(history.history['val_acc'])
