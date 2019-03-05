@@ -1,33 +1,33 @@
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.metrics import confusion_matrix, accuracy_score
-
-
-from keras.preprocessing.sequence import pad_sequences
-from keras.models import Sequential
-from keras.layers import *
-from keras.utils.np_utils import to_categorical
-from keras.initializers import Constant
-from keras.optimizers import RMSprop
-import re
-
-import matplotlib.pyplot as plt
-
-from keras.preprocessing.text import Tokenizer
-from keras.models import Sequential
-from keras.layers import Embedding
-from keras import layers
-from keras.preprocessing import sequence
-from sklearn.model_selection import cross_validate   
-from sklearn.neural_network import MLPClassifier   
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer 
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
 import numpy as np
 import pandas as pd
 import os
 
+from keras.preprocessing.sequence import pad_sequences
+from keras.preprocessing.text import Tokenizer
+from keras.models import Sequential
+from keras.layers import *
+from keras.utils.np_utils import to_categorical
+from keras.initializers import Constant
+#from keras.optimizers import RMSprop
+#import re
+
+import matplotlib.pyplot as plt
+
+from keras.preprocessing.text import Tokenizer
+#from keras.layers import Embedding
+#from keras import layers
+from keras.preprocessing import sequence
+
+from sklearn.metrics import confusion_matrix, accuracy_score
+from sklearn.model_selection import cross_validate   
+#from sklearn.neural_network import MLPClassifier   
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer 
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import f1_score
+
+
 from scipy.sparse import csr_matrix
-from keras.preprocessing.text import one_hot
+#from keras.preprocessing.text import one_hot
 
 # Test train split
 labels = []
@@ -85,7 +85,7 @@ model.compile(loss = 'sparse_categorical_crossentropy', optimizer=RMSprop(clipno
 batch_size = 32
 indices = np.arange(0, len(y_train), 1, dtype=np.int32)
 np.random.shuffle(indices)
-history = model.fit(x_train[indices], y_train[indices]-1, epochs=80, batch_size=batch_size, verbose=1, validation_split=0.1)
+history = model.fit(x_train[indices], y_train[indices]-1, epochs=32, batch_size=batch_size, verbose=1, validation_split=0.1)
 
 #print (x_train, y_train)
 plt.plot(history.history['acc'])
