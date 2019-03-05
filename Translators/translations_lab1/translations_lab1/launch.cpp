@@ -4,7 +4,7 @@ int main()
 {
 	const_table<string> string_t("table2.txt");
 
-	bool check1 = string_t.is_element_in_table("int");
+	bool check1 = string_t.is_element_in_table("int");// проверка наличия типа int в постоянной таблице, true, ok
 
 	int n0;
 	string_t.get_elemen_number("int", n0);
@@ -16,10 +16,10 @@ int main()
 	vars_t.add_ind("b");
 	vars_t.add_ind("aab");
 
-	bool check3 = vars_t.add_ind("a");
+	bool check2 = vars_t.add_ind("a"); //попытка добавить уже наличиествующий, false, ok
 
-	bool check4 = vars_t.check_ind_in_table("aab");
-	bool check5 = vars_t.check_ind_in_table("c");
+	bool check3 = vars_t.check_ind_in_table("aab"); //проверка на наличие наличиествующего, true, ok
+	bool check4 = vars_t.check_ind_in_table("c"); //проверка на наличие отсутствующего идентификатора - false, ок
 
 	int n1, n2;
 	vars_t.ind_adrress("b", n1, n2);
