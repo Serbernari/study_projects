@@ -30,8 +30,8 @@ public:
 	bool get_lexeme(int hash, int numb, lexeme& gets_lexeme); //get token by it's full adress
 	bool set_type_address(int hash, int numb, int type); //Set type by full adress
 	bool set_value_address(int hash, int numb, bool val); //Set value by full adressУ
-
-
+	
+	//сделать отдельный класс для констант только поиск и добавление, не лексемы а цепочек (цепочка содержит строки)
 
 private:
 

@@ -107,7 +107,7 @@ bool variable_table::get_lexeme(int hash, int numb, lexeme& gets_lexeme)
 }
 
 
-int variable_table::calc_hash(string ind_name)
+int variable_table::calc_hash(string ind_name) //две хэш функции и два размера
 {
 	if ('0' <= ind_name[0] && ind_name[0] <= '9')
 		return ind_name[0] - '0';

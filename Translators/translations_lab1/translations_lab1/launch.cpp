@@ -5,6 +5,7 @@ int main()
 	const_table<string> string_t("table2.txt");
 
 	bool check1 = string_t.is_element_in_table("int");// проверка наличия типа int в постоянной таблице, true, ok
+	bool check12 = string_t.is_element_in_table("intqw");
 
 	int n0;
 	string_t.get_elemen_number("int", n0);
@@ -33,6 +34,10 @@ int main()
 
 	vars_t.set_type_address(n1, n2, 3);
 	vars_t.set_value_address(n1, n2, true);
+	
+	variable_table const_t;
+	const_t.add_ind("my_awesome_constant");
+	bool check_const = const_t.check_ind_in_table("my_awesome_constant");
 
 	return 0;
 }
