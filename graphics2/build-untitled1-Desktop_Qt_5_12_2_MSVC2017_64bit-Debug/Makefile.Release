@@ -49,16 +49,20 @@ OBJECTS_DIR   = release
 
 SOURCES       = ..\untitled1\main.cpp \
 		..\untitled1\mainwindow.cpp \
-		..\untitled1\glview.cpp release\moc_mainwindow.cpp
+		..\untitled1\glview.cpp \
+		..\untitled1\hermitcubicspline.cpp release\moc_mainwindow.cpp
 OBJECTS       = release\main.obj \
 		release\mainwindow.obj \
 		release\glview.obj \
+		release\hermitcubicspline.obj \
 		release\moc_mainwindow.obj
 
 DIST          =  ..\untitled1\mainwindow.h \
-		..\untitled1\glview.hpp ..\untitled1\main.cpp \
+		..\untitled1\glview.hpp \
+		..\untitled1\hermitcubicspline.h ..\untitled1\main.cpp \
 		..\untitled1\mainwindow.cpp \
-		..\untitled1\glview.cpp
+		..\untitled1\glview.cpp \
+		..\untitled1\hermitcubicspline.cpp
 QMAKE_TARGET  = untitled1
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = untitled1.exe
@@ -135,7 +139,7 @@ all: Makefile.Release  release\untitled1.exe
 
 release\untitled1.exe: ui_mainwindow.h $(OBJECTS) 
 	$(LINKER) $(LFLAGS) /MANIFEST:embed /OUT:$(DESTDIR_TARGET) @<<
-release\main.obj release\mainwindow.obj release\glview.obj release\moc_mainwindow.obj
+release\main.obj release\mainwindow.obj release\glview.obj release\hermitcubicspline.obj release\moc_mainwindow.obj
 $(LIBS)
 <<
 
@@ -145,10 +149,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) untitled1.zip $(SOURCES) $(DIST) ..\untitled1\untitled1.pro ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\spec_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\angle.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\msvc-desktop.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\qconfig.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_location.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt_functions.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt_config.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\msvc-version.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\toolchain.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\default_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\resolve_config.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\default_post.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\build_pass.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qml_debug.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\precompile_header.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\warn_on.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\resources.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\moc.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\opengl.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\uic.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qmake_use.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\file_copies.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\windows.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\testcase_targets.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exceptions.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\yacc.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\lex.prf ..\untitled1\untitled1.pro ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5OpenGL.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Widgets.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Gui.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Core.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\qtmain.prl    ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp ..\untitled1\mainwindow.h ..\untitled1\glview.hpp  ..\untitled1\main.cpp ..\untitled1\mainwindow.cpp ..\untitled1\glview.cpp ..\untitled1\mainwindow.ui    
+	$(ZIP) untitled1.zip $(SOURCES) $(DIST) ..\untitled1\untitled1.pro ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\spec_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\angle.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\windows-vulkan.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\msvc-desktop.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\qconfig.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3danimation_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dcore_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dinput_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dlogic_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickanimation_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickinput_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickrender_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3dquickscene2d_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3drender.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_3drender_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_accessibility_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axbase.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axserver.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_core.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_core_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_dbus.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_dbus_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designer.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_devicediscovery_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_edid_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_egl_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_fb_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_fontdatabase_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gamepad_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gui.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_help.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_help_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_location.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_location_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_network.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_network_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_nfc.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_opengl.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_packetprotocol_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_platformcompositor_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioning.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_positioningquick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmldebug_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quick.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickcontrols2_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickshapes_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quicktemplates2_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_remoteobjects_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_repparser.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_repparser_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_scxml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_scxml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sensors.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialbus_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialport.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sql.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_svg.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_testlib.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_texttospeech_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_theme_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uiplugin.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uitools.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_vulkan_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webchannel_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_websockets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webview.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_webview_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_widgets.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_windowsuiautomation_support_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_winextras.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xml.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\modules\qt_lib_zlib_private.pri ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt_functions.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt_config.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\win32-msvc\qmake.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\spec_post.prf .qmake.stash ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exclusive_builds.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\common\msvc-version.conf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\toolchain.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\default_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\default_pre.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\resolve_config.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exclusive_builds_post.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\default_post.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\build_pass.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qml_debug.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\precompile_header.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\warn_on.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qt.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\resources.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\moc.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\opengl.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\uic.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\qmake_use.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\file_copies.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\win32\windows.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\testcase_targets.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\exceptions.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\yacc.prf ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\lex.prf ..\untitled1\untitled1.pro ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5OpenGL.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Widgets.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Gui.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\Qt5Core.prl ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\lib\qtmain.prl    ..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\mkspecs\features\data\dummy.cpp ..\untitled1\mainwindow.h ..\untitled1\glview.hpp ..\untitled1\hermitcubicspline.h  ..\untitled1\main.cpp ..\untitled1\mainwindow.cpp ..\untitled1\glview.cpp ..\untitled1\hermitcubicspline.cpp ..\untitled1\mainwindow.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\glview.obj release\moc_mainwindow.obj
+	-$(DEL_FILE) release\main.obj release\mainwindow.obj release\glview.obj release\hermitcubicspline.obj release\moc_mainwindow.obj
 	-$(DEL_FILE) release\untitled1.exp
 
 distclean: clean 
@@ -301,6 +305,9 @@ release\moc_mainwindow.cpp: ..\untitled1\mainwindow.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QSurfaceFormat \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qsurfaceformat.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QMouseEvent \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbasictimer.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\QMainWindow \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qmainwindow.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qtabwidget.h \
@@ -332,141 +339,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-release\main.obj: ..\untitled1\main.cpp ..\untitled1\mainwindow.h \
-		..\untitled1\glview.hpp \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtOpenGL\QGLWidget \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtOpenGL\qgl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qopengl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qtguiglobal.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qglobal.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qconfig-bootstrapped.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qconfig.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtcore-config.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qsystemdetection.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qprocessordetection.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qcompilerdetection.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtypeinfo.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qsysinfo.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qlogging.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qflags.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qatomic.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbasicatomic.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qatomic_bootstrap.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qgenericatomic.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qatomic_cxx11.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qatomic_msvc.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qglobalstatic.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qmutex.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qnumeric.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qversiontagging.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qtgui-config.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qt_windows.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtANGLE\GLES3\gl3.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtANGLE\GLES3\gl3platform.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtANGLE\KHR\khrplatform.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtANGLE\GLES2\gl2.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtANGLE\GLES2\gl2platform.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qopengles2ext.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qopenglext.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qwidget.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qtwidgetsglobal.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qtwidgets-config.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qwindowdefs.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qobjectdefs.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qnamespace.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qobjectdefs_impl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qwindowdefs_win.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qobject.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstring.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qchar.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbytearray.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qrefcount.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qarraydata.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringliteral.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringalgorithms.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringview.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringbuilder.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qlist.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qalgorithms.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qiterator.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qhashfunctions.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qpair.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbytearraylist.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringlist.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qregexp.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qstringmatcher.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qcoreevent.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qscopedpointer.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qmetatype.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qvarlengtharray.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qcontainerfwd.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qobject_impl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qmargins.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpaintdevice.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qrect.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qsize.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qpoint.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpalette.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qcolor.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qrgb.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qrgba64.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qbrush.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qvector.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qmatrix.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpolygon.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qregion.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qdatastream.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qiodevice.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qline.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qtransform.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpainterpath.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qimage.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpixelformat.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpixmap.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qsharedpointer.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qshareddata.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qhash.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qsharedpointer_impl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qfont.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qfontmetrics.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qfontinfo.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qsizepolicy.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qcursor.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qkeysequence.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qevent.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qvariant.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qmap.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qdebug.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtextstream.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qlocale.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qset.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qcontiguouscache.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qurl.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qurlquery.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qfile.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qfiledevice.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qvector2d.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qtouchdevice.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpaintengine.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpainter.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qtextoption.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qpen.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtOpenGL\qglcolormap.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtOpenGL\qtopenglglobal.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QSurfaceFormat \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qsurfaceformat.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QMouseEvent \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\QMainWindow \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qmainwindow.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qtabwidget.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qicon.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\QApplication \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qapplication.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qcoreapplication.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qeventloop.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qdesktopwidget.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qguiapplication.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qinputmethod.h
+release\main.obj: ..\untitled1\main.cpp 
 
 release\mainwindow.obj: ..\untitled1\mainwindow.cpp ..\untitled1\mainwindow.h \
 		..\untitled1\glview.hpp \
@@ -592,6 +465,9 @@ release\mainwindow.obj: ..\untitled1\mainwindow.cpp ..\untitled1\mainwindow.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QSurfaceFormat \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qsurfaceformat.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QMouseEvent \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbasictimer.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\QMainWindow \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qmainwindow.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtWidgets\qtabwidget.h \
@@ -738,7 +614,12 @@ release\glview.obj: ..\untitled1\glview.cpp ..\untitled1\glview.hpp \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtOpenGL\qtopenglglobal.h \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QSurfaceFormat \
 		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\qsurfaceformat.h \
-		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QMouseEvent
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtGui\QMouseEvent \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\QTimer \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qtimer.h \
+		..\..\..\..\Progarams\Qt\5.12.2\msvc2017_64\include\QtCore\qbasictimer.h
+
+release\hermitcubicspline.obj: ..\untitled1\hermitcubicspline.cpp ..\untitled1\hermitcubicspline.h
 
 release\moc_mainwindow.obj: release\moc_mainwindow.cpp 
 

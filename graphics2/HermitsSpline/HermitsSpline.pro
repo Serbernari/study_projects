@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-03-13T16:06:50
+# Project created by QtCreator 2019-03-14T07:40:17
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = untitled
+TARGET = HermitsSpline
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,9 +25,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        mainwindow.cpp \
+    glview.cpp
 
-HEADERS +=
+HEADERS += \
+        mainwindow.h \
+    glview.hpp
 
 FORMS += \
         mainwindow.ui

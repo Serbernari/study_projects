@@ -28,11 +28,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    glview.cpp
+    glview.cpp \
+    hermitcubicspline.cpp
 
 HEADERS += \
         mainwindow.h \
-    glview.hpp
+    glview.hpp \
+    hermitcubicspline.h
 
 FORMS += \
         mainwindow.ui
