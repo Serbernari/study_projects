@@ -2,6 +2,22 @@
 #define WIDTH 800
 #define HEIGHT 600
 
+void glView::extendPoints(const int mul)
+{
+    for (int i = 0; i < (int)dotBuf.size() * mul; ++i)
+    {
+        if (true)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+}
+
+
 glView::glView()
 {
     mTimer.start(20);
@@ -29,9 +45,9 @@ void glView::paintGL()
 
     qglColor(Qt::red);
 
-    glBegin(GL_LINE_LOOP);
+    glBegin(GL_LINE_STRIP); // types
 
-    for(int i = 0; i < dotBuf.size(); ++i)
+    for(int i = 0; i < (int)dotBuf.size(); ++i)
     {
         glVertex2f(dotBuf[i].x() * mScaleFactorX, dotBuf[i].y() * mScaleFactorY);
     }
@@ -43,6 +59,7 @@ void glView::paintGL()
 void glView::mousePressEvent(QMouseEvent* apEvent)
 {
     dotBuf.push_back(apEvent->pos());
+    //extend_dots
     //mPosition = apEvent->pos();
     // update();
 }

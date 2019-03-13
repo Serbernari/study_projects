@@ -19,10 +19,12 @@ public:
 
 private:
     std::vector<QPoint> dotBuf;
+    std::vector<QPoint> dotBuf_extended;
     QPoint mPosition;
     QTimer mTimer;
     float mScaleFactorX;
     float mScaleFactorY;
+    void extendPoints(const int mul);
 };
 
 #endif // GLVIEW_HPP
