@@ -5,6 +5,9 @@
 #include <QMouseEvent>
 #include <QTimer>
 #include <vector>
+#include <cmath>
+
+float CubicHermite (float A, float B, float C, float D, float x);
 
 class glView : public QGLWidget
 {

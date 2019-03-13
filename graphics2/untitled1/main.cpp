@@ -2,7 +2,7 @@
 #include <QApplication>
 #include "glview.hpp"
 
-#pragma comment (lib, "opengl32.lib")
+//#pragma comment (lib, "opengl32.lib")
 
 int main(int argc, char *argv[])
 {

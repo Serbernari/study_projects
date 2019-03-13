@@ -6,6 +6,7 @@
 
 
 QT       += core gui opengl
+LIBS += -lglu32 -lopengl32 -lwinmm
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -28,13 +29,11 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    glview.cpp \
-    hermitcubicspline.cpp
+    glview.cpp
 
 HEADERS += \
         mainwindow.h \
-    glview.hpp \
-    hermitcubicspline.h
+    glview.hpp
 
 FORMS += \
         mainwindow.ui
