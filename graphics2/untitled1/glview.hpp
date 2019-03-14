@@ -19,14 +19,16 @@ public:
     void paintGL() override;
 
     void mousePressEvent(QMouseEvent*) override;
+    void keyPressEvent(QKeyEvent*) override;
+
 
 private:
-    int drawnVertexes = 0;
     int calculatedPoints = 1;
     std::vector<QPoint> dotBuf;
     std::vector<QPoint> dotDrawingBuf;
     QPoint mPosition;
-    QTimer mTimer;
+   // QTimer mTimer;
+    float WindowScale = 0.0f;
     float mScaleFactorX;
     float mScaleFactorY;
     void extendPoints(const int mul);

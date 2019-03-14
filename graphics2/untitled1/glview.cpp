@@ -17,7 +17,7 @@ float CubicHermite (float A, float B, float C, float D, float t)
 
 void glView::extendPoints(const int mul)
 {
-    if (dotBuf.size() > 4)
+    if (dotBuf.size() >= 4)
     {
         for (int i = 1; i < dotBuf.size() - 2; i++)
         {
@@ -37,19 +37,11 @@ void glView::extendPoints(const int mul)
     }
 }
 
-bool myQPointCompare (QPoint i,QPoint j)
-{ return (((i.x())*(i.x()) + (i.y())*(i.y())) < ((j.x())*(j.x()) + (j.y())*(j.y())));}
-
-float myQPointDistance (QPoint i,QPoint j)
-{
-    return sqrt((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y()));
-}
-
 void glView::paintGL()
 {
     glPointSize(1);
     qglClearColor(Qt::white);
-    if (drawnVertexes == 0)
+    if (calculatedPoints == 1) //cleaning only once
     {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
@@ -63,20 +55,10 @@ void glView::paintGL()
             glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX, dotDrawingBuf[i].y() * mScaleFactorY);
         }
         dotDrawingBuf.clear();
-        drawnVertexes += 1;
-    /*if (dotDrawingBuf.size() > drawnVertexes)
-    {
-        //std::sort(dotDrawingBuf.begin(), dotDrawingBuf.end(), myQPointCompare);
-        for(int i = drawnVertexes; i < (int)dotDrawingBuf.size(); ++i)
-        {
-            glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX, dotDrawingBuf[i].y() * mScaleFactorY);
-        }
-        drawnVertexes = (int)dotDrawingBuf.size();*/
-
-
     }
     glEnd();
 
+    //Drawing user's points
     glPointSize(15);
     qglColor(Qt::blue);
     glBegin(GL_POINTS); // Points
@@ -85,6 +67,8 @@ void glView::paintGL()
         glVertex2f(dotBuf[i].x()  * mScaleFactorX, dotBuf[i].y()  * mScaleFactorY);
     }
     glEnd();
+
+    //Drawing control lines between points
     qglColor(Qt::blue);
     glBegin(GL_LINE_STRIP); // Control line
     for(int i = 0; i < (int)dotBuf.size(); ++i)
@@ -96,8 +80,7 @@ void glView::paintGL()
 
 glView::glView()
 {
-    mTimer.start(20);
-    // connect(&mTimer, SIGNAL(timeout()), this, SLOT(repaint()));
+
 }
 
 void glView::initializeGL()
@@ -120,3 +103,29 @@ void glView::mousePressEvent(QMouseEvent* apEvent)
     extendPoints(DENSETY);
     updateGL();
 }
+
+void glView::keyPressEvent(QKeyEvent* event)
+{
+    double w = 0, h = 0;
+    if( event->key() == Qt::Key_W)
+    {
+        glTranslated(0.0,-5.0,0.0);
+        updateGL();
+    }
+    else if( event->key() == Qt::Key_A)
+    {
+        glTranslated(-5.0,0.0,0.0);
+        updateGL();
+    }
+    else if( event->key() == Qt::Key_S)
+    {
+        glTranslated(0.0,5.0,0.0);
+        updateGL();
+    }
+    else if( event->key() == Qt::Key_D)
+    {
+       glTranslated(5.0,0.0,0.0);
+        updateGL();
+    }
+}
+

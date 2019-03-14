@@ -10,6 +10,8 @@ int main(int argc, char *argv[])
   //  MainWindow w;
   // w.show();
     glView win;
+    win.resize(1280, 720);
+    win.move(100,100);
     win.show();
 
     return a.exec();
