@@ -47,15 +47,14 @@ void glView::paintGL()
     }
     qglColor(Qt::red);
     glBegin(GL_POINTS ); //Spline  types GL_POINTS GL_LINE_STRIP
-    if (dotDrawingBuf.size() > 0)
+    // if (dotDrawingBuf.size() > 0)
+
+    for(int i = 0; i < (int)dotDrawingBuf.size(); ++i)
     {
-        //std::sort(dotDrawingBuf.begin(), dotDrawingBuf.end(), myQPointCompare);
-        for(int i = 0; i < (int)dotDrawingBuf.size(); ++i)
-        {
-            glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX, dotDrawingBuf[i].y() * mScaleFactorY);
-        }
-        dotDrawingBuf.clear();
+        glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX + mShiftX, dotDrawingBuf[i].y() * mScaleFactorY + mShiftY);
     }
+    //dotDrawingBuf.clear();
+
     glEnd();
 
     //Drawing user's points
@@ -108,23 +107,24 @@ void glView::keyPressEvent(QKeyEvent* event)
 {
     double w = 0, h = 0;
     if( event->key() == Qt::Key_W)
-    {
-        glTranslated(0.0,-5.0,0.0);
+    {   mShiftY += 10;
+        //glTranslated(0.0,-15.0,0.0);
         updateGL();
     }
     else if( event->key() == Qt::Key_A)
     {
-        glTranslated(-5.0,0.0,0.0);
+        mShiftY -= 10;
+        // glTranslated(-15.0,0.0,0.0);
         updateGL();
     }
     else if( event->key() == Qt::Key_S)
     {
-        glTranslated(0.0,5.0,0.0);
+       mWindowScale *= 1.1;
         updateGL();
     }
     else if( event->key() == Qt::Key_D)
     {
-       glTranslated(5.0,0.0,0.0);
+        mWindowScale *= 0.9;
         updateGL();
     }
 }

@@ -28,7 +28,9 @@ private:
     std::vector<QPoint> dotDrawingBuf;
     QPoint mPosition;
    // QTimer mTimer;
-    float WindowScale = 0.0f;
+    float mWindowScale = 1.0;
+    float mShiftX = 0;
+    float mShiftY = 0;
     float mScaleFactorX;
     float mScaleFactorY;
     void extendPoints(const int mul);
