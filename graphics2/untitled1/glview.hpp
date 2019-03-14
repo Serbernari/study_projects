@@ -25,10 +25,13 @@ public:
 
 
 private:
-    int calculatedPoints = 1;
+    unsigned int calculatedPoints = 1;
+
     std::vector<QPoint> dotBuf; //user's points
     std::vector<QPoint> dotDrawingBuf; //points of spline
+
     QPoint mPosition; //mouse pos
+    QTimer mTimer;
 
     bool UpdateOn = false;
     double mWindowScale = 1.0; //scaling

@@ -3,6 +3,7 @@
 #define WIDTH 8000
 #define HEIGHT 6000
 #define DENSETY 100000
+#define SCALE_COMP 50
 
 float CubicHermite (float A, float B, float C, float D, float t)
 {
@@ -19,6 +20,9 @@ void glView::extendPoints(const int mul)
 {
     if (dotBuf.size() >= 4)
     {
+        if (dotBuf.size() - calculatedPoints)
+        {dotDrawingBuf.clear();}
+        calculatedPoints = dotBuf.size();
         for (unsigned long long i = 1; i < dotBuf.size() - 2; i++)
         {
             for (int j = 0; j < mul; ++j)
@@ -41,20 +45,19 @@ void glView::paintGL()
 {
     glPointSize(1);
     qglClearColor(Qt::white);
-    if (calculatedPoints == 1) //cleaning only once
-    {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     qglColor(Qt::red);
-    glBegin(GL_POINTS ); //Spline  types GL_POINTS GL_LINE_STRIP
-    // if (dotDrawingBuf.size() > 0)
-
-    for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
+    glBegin(GL_LINE_STRIP ); //Spline  types GL_POINTS GL_LINE_STRIP
+    if (dotDrawingBuf.size() > 0)
     {
-        glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX + mShiftX, dotDrawingBuf[i].y() * mScaleFactorY + mShiftY);
-    }
-    //dotDrawingBuf.clear();
+        for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
+        {
+            glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX + mShiftX, dotDrawingBuf[i].y() * mScaleFactorY + mShiftY);
+        }
 
+
+    }
     glEnd();
 
     //Drawing user's points
@@ -103,48 +106,59 @@ void glView::mousePressEvent(QMouseEvent* apEvent)
     updateGL();
 }
 
+void glView::lateUpdate()
+{
+    if (UpdateOn == false)
+    {
+        UpdateOn = true;
+        mTimer.start(40);
+        connect(&mTimer, SIGNAL(timeout()), this, SLOT(update()));
+        connect(&mTimer, SIGNAL(timeout()), this, SLOT(UpdateOn = false));
+    }
+}
+
 void glView::keyPressEvent(QKeyEvent* event)
 {
     if( event->key() == Qt::Key_W)
     {
         mShiftY += 10;
         //glTranslated(0.0,-15.0,0.0);
-        updateGL();
+        lateUpdate();
     }
     else if( event->key() == Qt::Key_S)
     {
         mShiftY -= 10;
         // mWindowScale *= 1.1;
-        updateGL();
+        lateUpdate();
     }
     else if( event->key() == Qt::Key_A)
     {
         mShiftX += 10;
         // glTranslated(-15.0,0.0,0.0);
-        updateGL();
+        lateUpdate();
     }
     else if( event->key() == Qt::Key_D)
     {
         mShiftX -= 10;
         // mWindowScale *= 0.9;
-        updateGL();
+        lateUpdate();
     }
     else if( event->key() == Qt::Key_Up)
     {
 
         mScaleFactorX *= 1.01;
-        mShiftX -= 30;
+        mShiftX -= SCALE_COMP;
         mScaleFactorY *= 1.01;
-        mShiftY -= 30;
-        updateGL();
+        mShiftY -= SCALE_COMP;
+        lateUpdate();
     }
     else if( event->key() == Qt::Key_Down)
     {
         mScaleFactorX *= 0.99;
-        mShiftX += 30;
+        mShiftX += SCALE_COMP;
         mScaleFactorY *= 0.99;
-        mShiftY += 30;
-      updateGL();
+        mShiftY += SCALE_COMP;
+        lateUpdate();
     }
 }
 
