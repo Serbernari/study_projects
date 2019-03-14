@@ -2,8 +2,9 @@
 
 #define WIDTH 8000
 #define HEIGHT 6000
-#define DENSETY 100000
+#define DENSETY 150000
 #define SCALE_COMP 50
+#define MOVE_SPEED 30
 
 float CubicHermite (float A, float B, float C, float D, float t)
 {
@@ -15,6 +16,10 @@ float CubicHermite (float A, float B, float C, float D, float t)
     return a*t*t*t + b*t*t + c*t + d;
 }
 
+float myQPointDistNorm (QPoint i,QPoint j)
+{
+    return (1 - 1/((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y())));
+}
 
 void glView::extendPoints(const int mul)
 {
@@ -25,13 +30,12 @@ void glView::extendPoints(const int mul)
         calculatedPoints = dotBuf.size();
         for (unsigned long long i = 1; i < dotBuf.size() - 2; i++)
         {
-            for (int j = 0; j < mul; ++j)
+            for (int j = 0; j < mul * myQPointDistNorm(dotBuf[i+1], dotBuf[i]) ; ++j)
             {
                 //нормализовать на 1
                 double percent = ((double)j) / (double(mul - 1));
                 double tx = (dotBuf.size() - 1) * percent;
                 double t = tx - floor(tx);
-                //j + mul * i
                 QPoint tempDot;
                 tempDot.setX((int)CubicHermite(dotBuf[i-1].x(), dotBuf[i].x(), dotBuf[i+1].x(), dotBuf[i+2].x(), t ));
                 tempDot.setY((int)CubicHermite(dotBuf[i-1].y(), dotBuf[i].y(), dotBuf[i+1].y(), dotBuf[i+2].y(), t ));
@@ -121,25 +125,25 @@ void glView::keyPressEvent(QKeyEvent* event)
 {
     if( event->key() == Qt::Key_W)
     {
-        mShiftY += 10;
+        mShiftY += MOVE_SPEED;
         //glTranslated(0.0,-15.0,0.0);
         lateUpdate();
     }
     else if( event->key() == Qt::Key_S)
     {
-        mShiftY -= 10;
+        mShiftY -= MOVE_SPEED;
         // mWindowScale *= 1.1;
         lateUpdate();
     }
     else if( event->key() == Qt::Key_A)
     {
-        mShiftX += 10;
+        mShiftX += MOVE_SPEED;
         // glTranslated(-15.0,0.0,0.0);
         lateUpdate();
     }
     else if( event->key() == Qt::Key_D)
     {
-        mShiftX -= 10;
+        mShiftX -= MOVE_SPEED;
         // mWindowScale *= 0.9;
         lateUpdate();
     }
