@@ -22,7 +22,7 @@ public:
 
 private:
     std::vector<QPoint> dotBuf;
-    std::vector<QPoint> dotBuf_extended;
+    std::vector<QPoint> dotDrawingBuf;
     QPoint mPosition;
     QTimer mTimer;
     float mScaleFactorX;
