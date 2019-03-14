@@ -20,19 +20,22 @@ public:
 
     void mousePressEvent(QMouseEvent*) override;
     void keyPressEvent(QKeyEvent*) override;
+    float mTransformations(); //summing up rescaling
+    void lateUpdate();
 
 
 private:
     int calculatedPoints = 1;
-    std::vector<QPoint> dotBuf;
-    std::vector<QPoint> dotDrawingBuf;
-    QPoint mPosition;
-   // QTimer mTimer;
-    float mWindowScale = 1.0;
-    float mShiftX = 0;
-    float mShiftY = 0;
-    float mScaleFactorX;
-    float mScaleFactorY;
+    std::vector<QPoint> dotBuf; //user's points
+    std::vector<QPoint> dotDrawingBuf; //points of spline
+    QPoint mPosition; //mouse pos
+
+    bool UpdateOn = false;
+    double mWindowScale = 1.0; //scaling
+    float mShiftX = 0; //moving by wasd
+    float mShiftY = 0; //moving by wasd
+    float mScaleFactorX; //window resizing
+    float mScaleFactorY; //window resizing
     void extendPoints(const int mul);
 };
 

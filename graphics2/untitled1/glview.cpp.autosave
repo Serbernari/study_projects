@@ -103,6 +103,8 @@ void glView::mousePressEvent(QMouseEvent* apEvent)
     updateGL();
 }
 
+void late
+
 void glView::keyPressEvent(QKeyEvent* event)
 {
     if( event->key() == Qt::Key_W)
