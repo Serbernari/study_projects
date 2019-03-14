@@ -21,6 +21,8 @@ public:
     void mousePressEvent(QMouseEvent*) override;
 
 private:
+    int drawnVertexes = 0;
+    int calculatedPoints = 1;
     std::vector<QPoint> dotBuf;
     std::vector<QPoint> dotDrawingBuf;
     QPoint mPosition;

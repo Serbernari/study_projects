@@ -2,7 +2,8 @@
 
 #define WIDTH 8000
 #define HEIGHT 6000
-#define DENSETY 10000
+#define DENSETY 100000
+
 float CubicHermite (float A, float B, float C, float D, float t)
 {
     float a = -A/2.0f + (3.0f*B)/2.0f - (3.0f*C)/2.0f + D/2.0f;
@@ -10,8 +11,7 @@ float CubicHermite (float A, float B, float C, float D, float t)
     float c = -A/2.0f + C/2.0f;
     float d = B;
 
-    float qwe = a*t*t*t + b*t*t + c*t + d;
-    return qwe;
+    return a*t*t*t + b*t*t + c*t + d;
 }
 
 
@@ -37,27 +37,56 @@ void glView::extendPoints(const int mul)
     }
 }
 
+bool myQPointCompare (QPoint i,QPoint j)
+{ return (((i.x())*(i.x()) + (i.y())*(i.y())) < ((j.x())*(j.x()) + (j.y())*(j.y())));}
+
+float myQPointDistance (QPoint i,QPoint j)
+{
+    return sqrt((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y()));
+}
+
 void glView::paintGL()
 {
-    glEnable(GL_VERTEX_PROGRAM_POINT_SIZE);
-    glPointSize(5);
+    glPointSize(1);
     qglClearColor(Qt::white);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    qglColor(Qt::red);
-    glBegin(GL_POINTS); // types GL_POINTS GL_LINE_STRIP
-
-    if (dotDrawingBuf.size() >= 19)
+    if (drawnVertexes == 0)
     {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+    qglColor(Qt::red);
+    glBegin(GL_POINTS ); //Spline  types GL_POINTS GL_LINE_STRIP
+    if (dotDrawingBuf.size() > 0)
+    {
+        //std::sort(dotDrawingBuf.begin(), dotDrawingBuf.end(), myQPointCompare);
         for(int i = 0; i < (int)dotDrawingBuf.size(); ++i)
         {
-            glVertex2f(dotDrawingBuf[i].x()  * mScaleFactorX, dotDrawingBuf[i].y()  * mScaleFactorY);
+            glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX, dotDrawingBuf[i].y() * mScaleFactorY);
         }
+        dotDrawingBuf.clear();
+        drawnVertexes += 1;
+    /*if (dotDrawingBuf.size() > drawnVertexes)
+    {
+        //std::sort(dotDrawingBuf.begin(), dotDrawingBuf.end(), myQPointCompare);
+        for(int i = drawnVertexes; i < (int)dotDrawingBuf.size(); ++i)
+        {
+            glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX, dotDrawingBuf[i].y() * mScaleFactorY);
+        }
+        drawnVertexes = (int)dotDrawingBuf.size();*/
+
+
     }
     glEnd();
 
     glPointSize(15);
     qglColor(Qt::blue);
-    glBegin(GL_POINTS); // types GL_POINTS GL_LINE_STRIP
+    glBegin(GL_POINTS); // Points
+    for(int i = 0; i < (int)dotBuf.size(); ++i)
+    {
+        glVertex2f(dotBuf[i].x()  * mScaleFactorX, dotBuf[i].y()  * mScaleFactorY);
+    }
+    glEnd();
+    qglColor(Qt::blue);
+    glBegin(GL_LINE_STRIP); // Control line
     for(int i = 0; i < (int)dotBuf.size(); ++i)
     {
         glVertex2f(dotBuf[i].x()  * mScaleFactorX, dotBuf[i].y()  * mScaleFactorY);
@@ -89,7 +118,5 @@ void glView::mousePressEvent(QMouseEvent* apEvent)
 {
     dotBuf.push_back(apEvent->pos());
     extendPoints(DENSETY);
-    //extend_dots
-    //mPosition = apEvent->pos();
     updateGL();
 }
