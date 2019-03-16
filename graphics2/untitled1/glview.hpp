@@ -6,6 +6,7 @@
 #include <QTimer>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 float CubicHermite (float A, float B, float C, float D, float x);
 
@@ -22,10 +23,13 @@ public:
     void keyPressEvent(QKeyEvent*) override;
     float mTransformations(); //summing up rescaling
     void lateUpdate();
+    GLuint texture;
+    void LoadGLTextures( const char *name );
 
 
 private:
     unsigned int calculatedPoints = 1;
+
 
     std::vector<QPoint> dotBuf; //user's points
     std::vector<QPoint> dotDrawingBuf; //points of spline

@@ -2,9 +2,29 @@
 
 #define WIDTH 8000
 #define HEIGHT 6000
-#define DENSETY 150000
+#define DENSETY 1500
 #define SCALE_COMP 50
 #define MOVE_SPEED 30
+
+void glView::LoadGLTextures( const char *name )
+{
+    QImage img;
+
+    if(!img.load(name))
+    {
+        std::cerr << "ERROR while loading image" << std::endl;
+    }
+
+    QImage t = QGLWidget::convertToGLFormat(img);
+
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, t.width(), t.height(), 0, GL_RGBA, GL_UNSIGNED_BYTE, t.bits());
+
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR );
+    glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+    glBindTexture( GL_TEXTURE_2D, 0 );
+}
 
 float CubicHermite (float A, float B, float C, float D, float t)
 {
@@ -51,16 +71,25 @@ void glView::paintGL()
     qglClearColor(Qt::white);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glEnable(GL_TEXTURE_2D); //texture
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1
+    glTexCoord2f(0.0f, 0.0f);     glVertex2f(- WIDTH, - HEIGHT); // vertex 2
+    glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
+    glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+
     qglColor(Qt::red);
-    glBegin(GL_LINE_STRIP ); //Spline  types GL_POINTS GL_LINE_STRIP
+    glBegin(GL_POINTS); //Spline  types GL_POINTS GL_LINE_STRIP
     if (dotDrawingBuf.size() > 0)
     {
         for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
         {
             glVertex2f(dotDrawingBuf[i].x() * mScaleFactorX + mShiftX, dotDrawingBuf[i].y() * mScaleFactorY + mShiftY);
         }
-
-
     }
     glEnd();
 
@@ -82,6 +111,7 @@ void glView::paintGL()
         glVertex2f(dotBuf[i].x()  * mScaleFactorX + mShiftX, dotBuf[i].y()  * mScaleFactorY + mShiftY);
     }
     glEnd();
+
 }
 
 glView::glView()
@@ -94,6 +124,8 @@ void glView::initializeGL()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0, WIDTH, HEIGHT, 0, 0, 1);
+    glEnable(GL_TEXTURE_2D);
+    LoadGLTextures("2.bmp");
 }
 
 void glView::resizeGL(int w, int h)
