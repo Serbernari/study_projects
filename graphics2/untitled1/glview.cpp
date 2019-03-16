@@ -1,10 +1,92 @@
 #include "glview.hpp"
-
+#include <QFont>
 #define WIDTH 8000
 #define HEIGHT 6000
 #define DENSETY 1500
 #define SCALE_COMP 50
 #define MOVE_SPEED 30
+
+//отрисовка координатных осей
+void glView::DrawAxis()
+{
+    int ind = 60; //расстояние меж подписями
+    int len = 5;			//длина штриха
+    int cenOx = WIDTH /2.0;	//центр оси по Ох
+    int cenOy = HEIGHT /2.0;	//центр оси по Оу
+    int lineShiftX = 14;	//сдвиг подписи с Ох
+    int sepShiftX = 2;		//сдвиг подписи от линии разделения
+    int lineShiftY = 7;		//сдвиг подписи с Оу
+    int sepShiftY = 3;		//сдвиг подписи от линии разделения
+
+    //нарисовать координатные подписи
+    for(int i = 0; i < 100; i++)
+    {
+        glLineWidth(10);
+        glColor3ub(255, 0, 0);
+        //по Ох
+        glBegin(GL_LINES);
+            glVertex2i(cenOx + i*ind, cenOy - len);
+            glVertex2i(cenOx + i*ind, cenOy + len);
+        glEnd();
+        glBegin(GL_LINES);
+            glVertex2i(cenOx - i*ind, cenOy - len);
+            glVertex2i(cenOx - i*ind, cenOy + len);
+        glEnd();
+
+        //по Оу
+        glBegin(GL_LINES);
+            glVertex2i(cenOx - len, cenOy + i*ind);
+            glVertex2i(cenOx + len, cenOy + i*ind);
+        glEnd();
+        glBegin(GL_LINES);
+            glVertex2i(cenOx - len, cenOy - i*ind);
+            glVertex2i(cenOx + len, cenOy - i*ind);
+        glEnd();
+
+        //вывести подписи к координатным осям
+        glColor3ub(0, 255, 0);
+        char dest[10];
+        double num = 10;//(double)i * mScaleFactorX;
+
+        //преобразование числа в строку
+        sprintf(dest, "%0.2lf", num);
+        std::string out = std::string(dest);
+
+        QFont f("Helvetica");
+
+        //по оси Ох
+      //  for(auto a : out)
+        QPoint test;
+        test.setX(100);
+        test.setY(100);
+        QPainter painter(this);
+     painter.drawText(test,"MY FUCKING TEXT");
+       // for(auto a : out)
+
+
+        //по оси Оу
+        if(i != 0)
+        {
+            //for(auto a : out)
+
+            //for(auto a : out)
+
+        }
+    }
+
+    //нарисовать координатные оси
+    glLineWidth(2);
+    glColor3ub(0, 0, 0);
+    glBegin(GL_LINES);
+        glVertex2i(-5, cenOy);
+        glVertex2i( 5, cenOy);
+    glEnd();
+    glBegin(GL_LINES);
+        glVertex2i(cenOx,-5);
+        glVertex2i(cenOx, 5);
+    glEnd();
+}
+
 
 void glView::LoadGLTextures( const char *name )
 {
@@ -71,7 +153,7 @@ void glView::paintGL()
     qglClearColor(Qt::white);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    glEnable(GL_TEXTURE_2D); //texture
+   /* glEnable(GL_TEXTURE_2D); //texture
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     glBegin(GL_QUADS);
@@ -80,7 +162,9 @@ void glView::paintGL()
     glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
     glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
     glEnd();
-    glDisable(GL_TEXTURE_2D);
+    glDisable(GL_TEXTURE_2D);*/
+
+    DrawAxis();
 
     qglColor(Qt::red);
     glBegin(GL_POINTS); //Spline  types GL_POINTS GL_LINE_STRIP
