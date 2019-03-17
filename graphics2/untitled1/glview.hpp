@@ -8,6 +8,7 @@
 #include <vector>
 #include <cmath>
 #include <iostream>
+#include <QFont>
 double CubicHermite (float A, float B, float C, float D, float x);
 
 class glView : public QGLWidget
@@ -29,7 +30,6 @@ public:
 
 private:
     unsigned int calculatedPoints = 1;
-
     std::vector<QPoint> dotBuf; //user's points
     std::vector<QPoint> dotDrawingBuf; //points of spline
     QPoint mPosition; //mouse pos
@@ -41,6 +41,7 @@ private:
     int mShiftX = 0; //moving by wasd
     int mShiftY = 0; //moving by wasd
 
+    double userScaleFactor = 1;
     double mScaleFactorX; //window resizing
     double mScaleFactorY; //window resizing
 

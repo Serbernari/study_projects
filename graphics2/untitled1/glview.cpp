@@ -1,5 +1,5 @@
 #include "glview.hpp"
-#include <QFont>
+
 #define WIDTH 8000
 #define HEIGHT 6000
 #define DENSETY 1500
@@ -10,12 +10,6 @@
 //выдавать значения сплайна
 //нормальный зум
 //отрисовка координатных осей
-void glView::DrawAxis()
-{
-    QPainter paint(this);
-    paint.setPen(Qt::blue);
-    paint.drawText(rect(), Qt::AlignCenter, "The Text");
-}
 
 void glView::LoadGLTextures( const char *name )
 {
@@ -101,8 +95,8 @@ void glView::paintGL()
     {
         for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
         {
-            glVertex2f(dotDrawingBuf[i].x() * static_cast<float>(mScaleFactorX) + mShiftX,
-                       dotDrawingBuf[i].y() * static_cast<float>(mScaleFactorY) + mShiftY);
+            glVertex2f(dotDrawingBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX,
+                       dotDrawingBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
         }
     }
     glEnd();
@@ -113,8 +107,8 @@ void glView::paintGL()
     glBegin(GL_POINTS); // Points
     for(unsigned long long i = 0; i < dotBuf.size(); ++i)
     {
-        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) + mShiftX,
-                   dotBuf[i].y() * static_cast<float>(mScaleFactorY) + mShiftY);
+        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor+ mShiftX,
+                   dotBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
     }
     glEnd();
 
@@ -123,12 +117,12 @@ void glView::paintGL()
     glBegin(GL_LINE_STRIP); // Control line
     for(unsigned long long i = 0; i < dotBuf.size(); ++i)
     {
-        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) + mShiftX, dotBuf[i].y()
-                   * static_cast<float>(mScaleFactorY) + mShiftY);
+        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX, dotBuf[i].y()
+                   * static_cast<float>(mScaleFactorY)* userScaleFactor + mShiftY);
     }
     glEnd();
 
-    QString tmp = "Axis X shift: ";
+    QString tmp = "Axis X shift: "; //не создават ькаждый раз, ну ёбана
     tmp += QString::number(mShiftX);
     glColor3f(1,0,0);
     QFont myFont("Times", 12, QFont::Bold);
@@ -159,15 +153,18 @@ void glView::initializeGL()
 void glView::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
-    mScaleFactorX = WIDTH / static_cast<double>(w);
-    mScaleFactorY = HEIGHT / static_cast<double>(h);
+    mScaleFactorX = ((WIDTH / static_cast<double>(w)));
+    mScaleFactorY = ((HEIGHT / static_cast<double>(h)));
 }
 
 void glView::mousePressEvent(QMouseEvent* apEvent)
 {
     QPoint tmpPoint;
-    tmpPoint.setX(apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX));
-    tmpPoint.setY(apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY));
+    tmpPoint.setX((apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX)));
+    tmpPoint.setY((apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY)));
+    tmpPoint.setX(tmpPoint.x() / userScaleFactor);
+    tmpPoint.setY(tmpPoint.y() / userScaleFactor);
+
     dotBuf.push_back(tmpPoint);
     extendPoints(DENSETY);
     updateGL();
@@ -209,18 +206,18 @@ void glView::keyPressEvent(QKeyEvent* event)
     else if( event->key() == Qt::Key_Up)
     {
 
-        mScaleFactorX *= 1.01;
-        mShiftX -= SCALE_COMP;
-        mScaleFactorY *= 1.01;
-        mShiftY -= SCALE_COMP;
+        userScaleFactor *= 1.01;
+        //mShiftX -= SCALE_COMP;
+        //mScaleFactorY *= 1.01;
+        //mShiftY -= SCALE_COMP;
         lateUpdate();
     }
     else if( event->key() == Qt::Key_Down)
     {
-        mScaleFactorX *= 0.99;
-        mShiftX += SCALE_COMP;
-        mScaleFactorY *= 0.99;
-        mShiftY += SCALE_COMP;
+        userScaleFactor *= 0.99;
+        //mShiftX += SCALE_COMP;
+        //mScaleFactorY *= 0.99;
+        //mShiftY += SCALE_COMP;
         lateUpdate();
     }
 }
