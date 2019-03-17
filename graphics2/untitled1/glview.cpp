@@ -6,16 +6,12 @@
 #define SCALE_COMP 50
 #define MOVE_SPEED 30
 
+//выдавать экранные координаты
+//выдавать значения сплайна
+//нормальный зум
 //отрисовка координатных осей
 void glView::DrawAxis()
 {
-    /*QFont f("Helvetica");
-    QPoint test;
-    test.setX(100);
-    test.setY(100);
-    QPainter painter(this);
-    painter.drawText(test,"MY FUCKING TEXT");*/
-
     QPainter paint(this);
     paint.setPen(Qt::blue);
     paint.drawText(rect(), Qt::AlignCenter, "The Text");
@@ -26,9 +22,7 @@ void glView::LoadGLTextures( const char *name )
     QImage img;
 
     if(!img.load(name))
-    {
-        std::cerr << "ERROR while loading image" << std::endl;
-    }
+    { std::cerr << "ERROR while loading image" << std::endl; }
 
     QImage t = QGLWidget::convertToGLFormat(img);
 
@@ -41,12 +35,12 @@ void glView::LoadGLTextures( const char *name )
     glBindTexture( GL_TEXTURE_2D, 0 );
 }
 
-float CubicHermite (float A, float B, float C, float D, float t)
+double CubicHermite (double A, double B, double C, double D, double t)
 {
-    float a = -A/2.0f + (3.0f*B)/2.0f - (3.0f*C)/2.0f + D/2.0f;
-    float b = A - (5.0f*B)/2.0f + 2.0f*C - D / 2.0f;
-    float c = -A/2.0f + C/2.0f;
-    float d = B;
+    double a = -A/2.0 + (3.0*B)/2.0 - (3.0*C)/2.0 + D/2.0;
+    double b = A - (5.0*B)/2.0 + 2.0*C - D / 2.0;
+    double c = -A/2.0 + C/2.0;
+    double d = B;
 
     return a*t*t*t + b*t*t + c*t + d;
 }
@@ -73,9 +67,11 @@ void glView::extendPoints(const int mul)
                 double t = tx - floor(tx);
                 QPoint tempDot;
                 tempDot.setX(static_cast<int>(
-                                 CubicHermite(dotBuf[i-1].x(), dotBuf[i].x(), dotBuf[i+1].x(), dotBuf[i+2].x(), t )));
+                                 CubicHermite(dotBuf[i-1].x(), dotBuf[i].x(),
+                                 dotBuf[i+1].x(), dotBuf[i+2].x(), t )));
                 tempDot.setY(static_cast<int>(
-                                 CubicHermite(dotBuf[i-1].y(), dotBuf[i].y(), dotBuf[i+1].y(), dotBuf[i+2].y(), t )));
+                                 CubicHermite(dotBuf[i-1].y(), dotBuf[i].y(), dotBuf[i+1].y(),
+                             dotBuf[i+2].y(), t )));
                 dotDrawingBuf.push_back(tempDot);
             }
         }
@@ -92,7 +88,7 @@ void glView::paintGL()
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1
+    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1 add scale factorsS делать в инициализации а не в дисплее
     glTexCoord2f(0.0f, 0.0f);     glVertex2f(- WIDTH, - HEIGHT); // vertex 2
     glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
     glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
@@ -163,8 +159,8 @@ void glView::initializeGL()
 void glView::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
-    mScaleFactorX = WIDTH / (float)w;
-    mScaleFactorY = HEIGHT / (float)h;
+    mScaleFactorX = WIDTH / static_cast<double>(w);
+    mScaleFactorY = HEIGHT / static_cast<double>(h);
 }
 
 void glView::mousePressEvent(QMouseEvent* apEvent)
@@ -193,25 +189,21 @@ void glView::keyPressEvent(QKeyEvent* event)
     if( event->key() == Qt::Key_W)
     {
         mShiftY += MOVE_SPEED;
-        //glTranslated(0.0,-15.0,0.0);
         lateUpdate();
     }
     else if( event->key() == Qt::Key_S)
     {
         mShiftY -= MOVE_SPEED;
-        // mWindowScale *= 1.1;
         lateUpdate();
     }
     else if( event->key() == Qt::Key_A)
     {
         mShiftX += MOVE_SPEED;
-        // glTranslated(-15.0,0.0,0.0);
         lateUpdate();
     }
     else if( event->key() == Qt::Key_D)
     {
         mShiftX -= MOVE_SPEED;
-        // mWindowScale *= 0.9;
         lateUpdate();
     }
     else if( event->key() == Qt::Key_Up)
