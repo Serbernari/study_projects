@@ -132,10 +132,17 @@ void glView::paintGL()
     }
     glEnd();
 
-    QString tmp = "Text_example, will add axis later";
-    glColor3f(0,0,1);
-       QFont myFont("Times", 12, QFont::Bold);
-       this->renderText(500, 500, tmp, myFont);
+    QString tmp = "Axis X shift: ";
+    tmp += QString::number(mShiftX);
+    glColor3f(1,0,0);
+    QFont myFont("Times", 12, QFont::Bold);
+    this->renderText(1100, 50, tmp, myFont);
+
+    QString tmp2 = "Axis Y shift: ";
+    tmp2 += QString::number(mShiftY);
+    glColor3f(1,0,0);
+    QFont myFont2("Times", 12, QFont::Bold);
+    this->renderText(1100, 70, tmp2, myFont2);
 
 }
 
