@@ -6,13 +6,37 @@
 #define SCALE_COMP 50
 #define MOVE_SPEED 30
 
-//выдавать экранные координаты
-//выдавать значения сплайна
-//нормальный зум
-//отрисовка координатных осей
+//выдавать значения сплайна - как блять?!
+
+float myQPointDistNorm (QPoint i,QPoint j)
+{
+    return (1 - 1/((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y())));
+}
+
+float myQPointDist (QPoint i,QPoint j)
+{
+    return ((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y()));
+}
+
+
+QPoint glView::getSplineData(QPoint userPoint)
+{
+    QPoint closestPoint;
+    float currentMinDist = WIDTH * HEIGHT;
+    for (unsigned int i = 0; i < dotDrawingBuf.size(); ++i)
+    {
+        if ( myQPointDist(userPoint, dotDrawingBuf[i]) < currentMinDist)
+        {
+            currentMinDist = myQPointDist(userPoint, dotDrawingBuf[i]);
+            closestPoint = dotDrawingBuf[i];
+        }
+    }
+    return closestPoint;
+}
 
 void glView::LoadGLTextures( const char *name )
 {
+
     QImage img;
 
     if(!img.load(name))
@@ -39,10 +63,7 @@ double CubicHermite (double A, double B, double C, double D, double t)
     return a*t*t*t + b*t*t + c*t + d;
 }
 
-float myQPointDistNorm (QPoint i,QPoint j)
-{
-    return (1 - 1/((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y())));
-}
+
 
 void glView::extendPoints(const int mul)
 {
@@ -72,70 +93,6 @@ void glView::extendPoints(const int mul)
     }
 }
 
-void glView::paintGL()
-{
-    glPointSize(1);
-    qglClearColor(Qt::white);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    glEnable(GL_TEXTURE_2D); //texture
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1 add scale factorsS делать в инициализации а не в дисплее
-    glTexCoord2f(0.0f, 0.0f);     glVertex2f(- WIDTH, - HEIGHT); // vertex 2
-    glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
-    glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
-
-    qglColor(Qt::red);
-    glBegin(GL_POINTS); //Spline  types GL_POINTS GL_LINE_STRIP
-    if (dotDrawingBuf.size() > 0)
-    {
-        for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
-        {
-            glVertex2f(dotDrawingBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX,
-                       dotDrawingBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
-        }
-    }
-    glEnd();
-
-    //Drawing user's points
-    glPointSize(15);
-    qglColor(Qt::blue);
-    glBegin(GL_POINTS); // Points
-    for(unsigned long long i = 0; i < dotBuf.size(); ++i)
-    {
-        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor+ mShiftX,
-                   dotBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
-    }
-    glEnd();
-
-    //Drawing control lines between points
-    qglColor(Qt::blue);
-    glBegin(GL_LINE_STRIP); // Control line
-    for(unsigned long long i = 0; i < dotBuf.size(); ++i)
-    {
-        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX, dotBuf[i].y()
-                   * static_cast<float>(mScaleFactorY)* userScaleFactor + mShiftY);
-    }
-    glEnd();
-
-    QString tmp = "Axis X shift: "; //не создават ькаждый раз, ну ёбана
-    tmp += QString::number(mShiftX);
-    glColor3f(1,0,0);
-    QFont myFont("Times", 12, QFont::Bold);
-    this->renderText(1100, 50, tmp, myFont);
-
-    QString tmp2 = "Axis Y shift: ";
-    tmp2 += QString::number(mShiftY);
-    glColor3f(1,0,0);
-    QFont myFont2("Times", 12, QFont::Bold);
-    this->renderText(1100, 70, tmp2, myFont2);
-
-}
-
 glView::glView()
 {
 
@@ -148,37 +105,121 @@ void glView::initializeGL()
     glOrtho(0, WIDTH, HEIGHT, 0, 0, 1);
     glEnable(GL_TEXTURE_2D);
     LoadGLTextures("2.bmp");
+    UpdateOnTimer();
 }
 
 void glView::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
-    mScaleFactorX = ((WIDTH / static_cast<double>(w)));
-    mScaleFactorY = ((HEIGHT / static_cast<double>(h)));
+    mScaleFactorX = (WIDTH / static_cast<double>(w));
+    mScaleFactorY = (HEIGHT / static_cast<double>(h));
 }
+
+void glView::paintGL()
+{
+    glPointSize(1);
+    qglClearColor(Qt::white);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //texture
+    glEnable(GL_TEXTURE_2D);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+    glBegin(GL_QUADS);
+    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1 add scale factorsS делать в инициализации а не в дисплее
+    glTexCoord2f(0.0f, 0.0f);     glVertex2f(- WIDTH, - HEIGHT); // vertex 2
+    glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
+    glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
+
+    //Spline
+    qglColor(Qt::red);
+    glBegin(GL_POINTS);// types GL_POINTS GL_LINE_STRIP
+    if (dotDrawingBuf.size() > 0)
+    {
+        for(unsigned long long i = 0; i < dotDrawingBuf.size(); ++i)
+        {
+            glVertex2f(dotDrawingBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX,
+                       dotDrawingBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
+        }
+    }
+    glEnd();
+
+
+
+    //Drawing user's points
+    glPointSize(15);
+    qglColor(Qt::blue);
+    glBegin(GL_POINTS); // Points
+    for(unsigned long long i = 0; i < dotBuf.size(); ++i)
+    {
+        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor+ mShiftX,
+                   dotBuf[i].y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
+    }
+    glEnd();
+
+    //Control point
+    qglColor(Qt::green);
+    glBegin(GL_POINTS);// types GL_POINTS GL_LINE_STRIP
+    glVertex2f(splineDot.x() * static_cast<float>(mScaleFactorX) * userScaleFactor+ mShiftX,
+               splineDot.y() * static_cast<float>(mScaleFactorY) * userScaleFactor+ mShiftY);
+    glEnd();
+
+
+    //Drawing control lines between points
+    qglColor(Qt::blue);
+    glBegin(GL_LINE_STRIP); // Control line
+    for(unsigned long long i = 0; i < dotBuf.size(); ++i)
+    {
+        glVertex2f(dotBuf[i].x() * static_cast<float>(mScaleFactorX) * userScaleFactor + mShiftX, dotBuf[i].y()
+                   * static_cast<float>(mScaleFactorY)* userScaleFactor + mShiftY);
+    }
+    glEnd();
+
+    QString tmp = "Cursor X pos: "; //не создават ькаждый раз, ну ёбана
+    tmp += QString::number(this->mapFromGlobal(QCursor::pos()).x());
+    glColor3f(1,0,0);
+    QFont myFont("Times", 12, QFont::Bold);
+    this->renderText(1100, 50, tmp, myFont);
+
+    QString tmp2 = "Cursor Y pos: ";
+    tmp2 += QString::number(this->mapFromGlobal(QCursor::pos()).y());
+    glColor3f(1,0,0);
+    QFont myFont2("Times", 12, QFont::Bold);
+    this->renderText(1100, 70, tmp2, myFont2);
+
+}
+
 
 void glView::mousePressEvent(QMouseEvent* apEvent)
 {
-    QPoint tmpPoint;
-    tmpPoint.setX((apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX)));
-    tmpPoint.setY((apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY)));
-    tmpPoint.setX(tmpPoint.x() / userScaleFactor);
-    tmpPoint.setY(tmpPoint.y() / userScaleFactor);
+    Qt::MouseButtons mouseButtons = apEvent->buttons();
+    if( mouseButtons == (Qt::LeftButton))
+    {
+        QPoint tmpPoint;
+        tmpPoint.setX((apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX)));
+        tmpPoint.setY((apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY)));
+        tmpPoint.setX(tmpPoint.x() / userScaleFactor);
+        tmpPoint.setY(tmpPoint.y() / userScaleFactor);
 
-    dotBuf.push_back(tmpPoint);
-    extendPoints(DENSETY);
-    updateGL();
+        dotBuf.push_back(tmpPoint);
+        extendPoints(DENSETY);
+        updateGL();
+    }
+    else if ( mouseButtons == (Qt::RightButton))
+    {
+        QPoint tmpPoint;
+        tmpPoint.setX((apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX)));
+        tmpPoint.setY((apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY)));
+        splineDot = getSplineData(tmpPoint);
+    }
+
 }
 
-void glView::lateUpdate()
+void glView::UpdateOnTimer()
 {
-    if (UpdateOn == false)
-    {
-        UpdateOn = true;
-        mTimer.start(40);
-        connect(&mTimer, SIGNAL(timeout()), this, SLOT(update()));
-        connect(&mTimer, SIGNAL(timeout()), this, SLOT(UpdateOn = false));
-    }
+    mTimer.start(40);
+    connect(&mTimer, SIGNAL(timeout()), this, SLOT(update()));
 }
 
 void glView::keyPressEvent(QKeyEvent* event)
@@ -186,39 +227,26 @@ void glView::keyPressEvent(QKeyEvent* event)
     if( event->key() == Qt::Key_W)
     {
         mShiftY += MOVE_SPEED;
-        lateUpdate();
     }
     else if( event->key() == Qt::Key_S)
     {
         mShiftY -= MOVE_SPEED;
-        lateUpdate();
     }
     else if( event->key() == Qt::Key_A)
     {
         mShiftX += MOVE_SPEED;
-        lateUpdate();
     }
     else if( event->key() == Qt::Key_D)
     {
         mShiftX -= MOVE_SPEED;
-        lateUpdate();
     }
     else if( event->key() == Qt::Key_Up)
     {
-
         userScaleFactor *= 1.01;
-        //mShiftX -= SCALE_COMP;
-        //mScaleFactorY *= 1.01;
-        //mShiftY -= SCALE_COMP;
-        lateUpdate();
     }
     else if( event->key() == Qt::Key_Down)
     {
         userScaleFactor *= 0.99;
-        //mShiftX += SCALE_COMP;
-        //mScaleFactorY *= 0.99;
-        //mShiftY += SCALE_COMP;
-        lateUpdate();
     }
 }
 

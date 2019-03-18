@@ -1,6 +1,7 @@
 #ifndef GLVIEW_HPP
 #define GLVIEW_HPP
 
+#include <QCursor>
 #include <QPainter>
 #include <QGLWidget>
 #include <QMouseEvent>
@@ -9,6 +10,7 @@
 #include <cmath>
 #include <iostream>
 #include <QFont>
+
 double CubicHermite (float A, float B, float C, float D, float x);
 
 class glView : public QGLWidget
@@ -23,19 +25,18 @@ public:
     void mousePressEvent(QMouseEvent*) override;
     void keyPressEvent(QKeyEvent*) override;
     float mTransformations(); //summing up rescaling
-    void lateUpdate();
+    void UpdateOnTimer();
     GLuint texture;
     void LoadGLTextures( const char *name );
     void DrawAxis();
-
+    QPoint getSplineData(QPoint userPoint);
 private:
     unsigned int calculatedPoints = 1;
     std::vector<QPoint> dotBuf; //user's points
     std::vector<QPoint> dotDrawingBuf; //points of spline
     QPoint mPosition; //mouse pos
-
+    QPoint splineDot;
     QTimer mTimer;
-    bool UpdateOn = false;
 
     double mWindowScale = 1.0; //scaling
     int mShiftX = 0; //moving by wasd
