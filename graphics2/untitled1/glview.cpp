@@ -2,11 +2,10 @@
 
 #define WIDTH 8000
 #define HEIGHT 6000
-#define DENSETY 1500
+#define DENSETY 2000
 #define SCALE_COMP 50
 #define MOVE_SPEED 30
-
-//выдавать значения сплайна - как блять?!
+#define CELL_SIZE 40
 
 float myQPointDistNorm (QPoint i,QPoint j)
 {
@@ -17,7 +16,6 @@ float myQPointDist (QPoint i,QPoint j)
 {
     return ((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y()));
 }
-
 
 QPoint glView::getSplineData(QPoint userPoint)
 {
@@ -125,10 +123,10 @@ void glView::paintGL()
     glBindTexture(GL_TEXTURE_2D, texture);
     glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
     glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 3.0f);     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1 add scale factorsS делать в инициализации а не в дисплее
+    glTexCoord2f(0.0f, 2.5f );     glVertex2f(- WIDTH,  HEIGHT);  // vertex 1 add scale factorsS делать в инициализации а не в дисплее
     glTexCoord2f(0.0f, 0.0f);     glVertex2f(- WIDTH, - HEIGHT); // vertex 2
-    glTexCoord2f(3.0f, 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
-    glTexCoord2f(3.0f, 3.0f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
+    glTexCoord2f(2.5f , 0.0f);     glVertex2f( WIDTH, - HEIGHT); // vertex 3
+    glTexCoord2f(2.5f , 2.5f);     glVertex2f( WIDTH,  HEIGHT); // vertex 4
     glEnd();
     glDisable(GL_TEXTURE_2D);
 
@@ -182,11 +180,18 @@ void glView::paintGL()
     QFont myFont("Times", 12, QFont::Bold);
     this->renderText(1100, 50, tmp, myFont);
 
-    QString tmp2 = "Cursor Y pos: ";
-    tmp2 += QString::number(this->mapFromGlobal(QCursor::pos()).y());
-    glColor3f(1,0,0);
-    QFont myFont2("Times", 12, QFont::Bold);
-    this->renderText(1100, 70, tmp2, myFont2);
+    tmp = "Cursor Y pos: ";
+    tmp += QString::number(this->mapFromGlobal(QCursor::pos()).y());
+    this->renderText(1100, 70, tmp, myFont);
+
+    tmp = "Spline value: ";
+    tmp += QString::number(splineDot.y());
+    this->renderText(1100, 90, tmp, myFont);
+
+    tmp = "Cell size: ";
+    tmp += QString::number(CELL_SIZE * userScaleFactor);
+    this->renderText(1100, 110, tmp, myFont);
+
 
 }
 
@@ -211,6 +216,8 @@ void glView::mousePressEvent(QMouseEvent* apEvent)
         QPoint tmpPoint;
         tmpPoint.setX((apEvent->x() - mShiftX / static_cast<int>(mScaleFactorX)));
         tmpPoint.setY((apEvent->y() - mShiftY / static_cast<int>(mScaleFactorY)));
+        tmpPoint.setX(tmpPoint.x() / userScaleFactor);
+        tmpPoint.setY(tmpPoint.y() / userScaleFactor);
         splineDot = getSplineData(tmpPoint);
     }
 
