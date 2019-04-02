@@ -17,7 +17,7 @@ float myQPointDist (QPoint i,QPoint j)
     return ((i.x() - j.x())*(i.x() - j.x()) + (i.y() - j.y())*(i.y() - j.y()));
 }
 
-QPoint glView::getSplineData(QPoint userPoint)
+QPoint glView::getSplineData(QPoint userPoint) //get spline value at choosen point
 {
     QPoint closestPoint;
     float currentMinDist = WIDTH * HEIGHT;
@@ -174,7 +174,7 @@ void glView::paintGL()
     }
     glEnd();
 
-    QString tmp = "Cursor X pos: "; //не создават ькаждый раз, ну ёбана
+    QString tmp = "Cursor X pos: ";
     tmp += QString::number(this->mapFromGlobal(QCursor::pos()).x());
     glColor3f(1,0,0);
     QFont myFont("Times", 12, QFont::Bold);
